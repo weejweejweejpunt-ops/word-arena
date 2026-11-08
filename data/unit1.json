@@ -7,6 +7,7 @@
       "number": 2,
       "title": "Appearances",
       "subtitle": "Uiterlijk",
+      "host": "vera",
       "words": [
         {
           "id": "athletic", "en": "athletic", "nl": "atletisch", "dir": "en-nl",
@@ -278,6 +279,7 @@
       "number": 3,
       "title": "Food and drink",
       "subtitle": "Eten en drinken",
+      "host": "dahlia",
       "words": [
         {
           "id": "a-piece-of", "en": "a piece of", "nl": "een stuk(je)", "dir": "en-nl",
@@ -468,6 +470,7 @@
       "number": 4,
       "title": "Geography",
       "subtitle": "Aardrijkskunde",
+      "host": "ivy",
       "words": [
         {
           "id": "to-cross", "en": "to cross", "nl": "oversteken", "dir": "en-nl",
@@ -670,6 +673,7 @@
       "number": 5,
       "title": "Relationships",
       "subtitle": "Relaties",
+      "host": "nova",
       "words": [
         {
           "id": "to-argue", "en": "to argue", "nl": "ruziemaken", "dir": "en-nl",

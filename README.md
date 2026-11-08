@@ -11,7 +11,7 @@ Alles is zelf bedacht en getekend. Er zijn geen echte worstelaarsters, namen of 
 - **Les 2 t/m 5** (Appearances, Food and drink, Geography, Relationships): samen **117 woorden**, elk met een plaatje en een eigen voorbeeldzin (met Nederlandse vertaling). De woorden zijn gecontroleerd tegen de boekfoto's. Ook "Alles samen" werkt.
 - De **uitdrukkingen van Les 3** (20 zinnen) staan al in de data, maar er is nog geen oefening voor.
 - **Leren**: kaartjes met plaatje, voorlezen (Brits Engels) en een voorbeeldzin.
-- **Kiezen**: meerkeuze met 4 opties. Fout? Dan zie je rustig het juiste antwoord, zonder rood en zonder geluid.
+- **Oefenmatch**: meerkeuze met 4 opties. Fout? Dan zie je rustig het juiste antwoord, zonder rood en zonder geluid.
 - **Richting**: zoals in het boek, Engels → Nederlands, Nederlands → Engels, of door elkaar.
 - **Slim herhalen** (Leitner): fout = het woord komt snel terug, goed = het komt later terug (na 1, 3 en 7 dagen).
 - **Riem** per les die zich vult. De riem gaat nooit omlaag.
@@ -104,6 +104,24 @@ Houd emoji's bij voorkeur eenvoudig en niet te nieuw. Oudere telefoons kunnen ni
 Alle gegevens staan in `data/characters.json`: naam, kleuren, huid, haarstijl (`mohawk`, `ponytail`, `straight`, `wavy`), bouw (`strong`, `lean`, `medium`, `tall`) en kleding. Pas een kleur aan en de tekening verandert overal mee.
 Voor een **eigen personage**: kopieer een blok, geef het een nieuwe sleutel en kies kleuren en haar. Zij kan dat dus zelf ontwerpen, bijvoorbeeld met een formulier in een volgende stap.
 
+## De plaatjes (eigen illustraties)
+
+De app gebruikt eigen illustraties (gemaakt met een AI-tool) op de plekken waar ze veel te zien zijn. De getekende figuren (SVG) blijven beperkt tot tijdens de les: de plaatjes bij de woorden en het resultaatscherm.
+
+| Bestand in `images/` | Waar |
+|---|---|
+| `groep.webp` | het openingsscherm (en bij "Alles samen") |
+| `pas-dahlia.webp`, `pas-vera.webp`, `pas-ivy.webp`, `pas-nova.webp` | pasfoto's bij het kiezen van een les (vierkant, 360 x 360) |
+| `dahlia.webp`, `vera.webp`, `ivy.webp`, `nova.webp` | de pagina "Ontmoet de worstelaarsters" (staand, 2:3) |
+
+Welke worstelaarster bij welke les hoort, staat in `data/unit1.json` bij `"host"` (Les 2 Vera, Les 3 Dahlia, Les 4 Ivy, Les 5 Nova). Voor een nieuwe les kies je een `host`.
+Ontbreekt een bestand, dan toont de app de getekende figuur, zodat er nooit een leeg vlak staat. Een plaatje vervangen kan door het bestand te overschrijven. Verhoog daarna het nummer bij `VERSION` in `sw.js`.
+Prompts en tips (ook: geen logo's en geen echte namen) staan in [images/PROMPTEN.md](images/PROMPTEN.md).
+
+## De openingspagina
+
+De app opent met een korte uitleg: wat de bedoeling is, hoe een match werkt en wat je riem is. De zinnen staan in `js/app.js` (functie `openingScreen`). De knop "Kies je les" staat altijd op dezelfde plek onderaan, dus je kunt de uitleg ook overslaan.
+
 ## Hoe het slim herhalen werkt
 
 Elk woord zit in een doosje (0 t/m 3). Goed antwoord: een doosje verder, en het woord komt pas na 1, 3 of 7 dagen terug. Fout: terug naar doosje 0, en het komt de volgende match weer voor. Een match bestaat uit eerst foute woorden, dan woorden die aan de beurt zijn, dan nieuwe woorden. De riem telt het hoogste doosje dat een woord ooit haalde, zodat hij nooit leger wordt.
@@ -125,4 +143,5 @@ data/characters.json                       alle personagegegevens
 data/units.json, data/unit1.json           de woordenlijsten
 galerij.html                               overzicht van alle tekeningen
 icons/                                     app-icoon
+images/                                    de illustraties (WebP) en de prompts waarmee ze gemaakt kunnen worden
 ```

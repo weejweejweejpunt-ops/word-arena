@@ -2,12 +2,15 @@
  * Strategie: eerst het netwerk proberen (zo komen updates vanzelf binnen), en als dat niet lukt de opgeslagen kopie gebruiken.
  * Verander VERSION als je nieuwe bestanden hebt gezet, dan wordt de oude opslag opgeruimd.
  */
-const VERSION = 'word-arena-v1';
+const VERSION = 'word-arena-v3';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/app.js', 'js/figure.js', 'js/store.js', 'js/speech.js',
   'data/characters.json', 'data/units.json',
-  'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png'
+  'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png',
+  'images/groep.webp',
+  'images/dahlia.webp', 'images/vera.webp', 'images/ivy.webp', 'images/nova.webp',
+  'images/pas-dahlia.webp', 'images/pas-vera.webp', 'images/pas-ivy.webp', 'images/pas-nova.webp'
 ];
 
 self.addEventListener('install', event => {

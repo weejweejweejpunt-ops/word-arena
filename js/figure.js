@@ -109,17 +109,18 @@ const BUILDS = {
 const UPPER = 58, FORE = 54, THIGH = 86, CALF = 82;
 
 /* arm: [naar buiten, omlaag] van de schouder naar de hand. legs: [hoek dijbeen, hoek onderbeen] (graden, naar buiten) */
+/* tilt = kanteling van het bovenlijf in graden (negatief = linker schouder omlaag); legsL/legsR = het gewicht staat op het ene been */
 const POSES = {
-  stand:   { arm: [8, 108], legs: [5, 4] },
-  hips:    { hips: true, legs: [6, 4] },
-  flex:    { arm: [54, -52], legs: [10, 7] },
-  victory: { arm: [26, -104], legs: [5, 4] },
-  jump:    { arm: [36, -86], legs: [32, 18], dy: -24 },
-  wave:    { L: [34, -62], R: [8, 108], legs: [5, 4] },
-  think:   { think: true, legs: [5, 4] },
-  present: { L: [8, 108], R: [64, 18], legs: [5, 4] },
-  hold:    { arm: [14, 52], legs: [5, 4] },
-  barbell: { arm: [16, -100], legs: [8, 6] }
+  stand:   { arm: [8, 108], legsL: [2, 2], legsR: [9, 6], tilt: -2.5 },
+  hips:    { hips: true, legsL: [3, 2], legsR: [10, 6], tilt: -3 },
+  flex:    { arm: [54, -52], legsL: [8, 6], legsR: [12, 8], tilt: -1.5 },
+  victory: { arm: [26, -104], legsL: [3, 2], legsR: [9, 5], tilt: -2 },
+  jump:    { arm: [36, -86], legs: [32, 18], dy: -24, tilt: 3 },
+  wave:    { L: [34, -62], R: [8, 108], legsL: [2, 2], legsR: [9, 6], tilt: -2 },
+  think:   { think: true, legsL: [3, 2], legsR: [8, 5], tilt: -2 },
+  present: { L: [8, 108], R: [64, 18], legsL: [2, 2], legsR: [9, 6], tilt: -2 },
+  hold:    { arm: [14, 52], legs: [6, 4] },
+  barbell: { arm: [16, -100], legs: [9, 6] }
 };
 
 /** Berekent waar de elleboog zit als schouder en hand vastliggen. */
@@ -151,8 +152,9 @@ function armsFor(pose, b) {
   return res;
 }
 function legsFor(pose, b) {
-  const [t, c] = pose.legs || [5, 4], rad = x => x * Math.PI / 180, res = {};
+  const rad = x => x * Math.PI / 180, res = {};
   for (const side of [-1, 1]) {
+    const [t, c] = (side === -1 ? pose.legsL : pose.legsR) || pose.legs || [5, 4];
     const hip = [CX + side * b.hx, 204];
     const knee = [hip[0] + side * Math.sin(rad(t)) * THIGH, hip[1] + Math.cos(rad(t)) * THIGH];
     const ankle = [knee[0] + side * Math.sin(rad(c)) * CALF, knee[1] + Math.cos(rad(c)) * CALF];
@@ -183,7 +185,8 @@ function eyeSVG(cx, cy, outer, kind, g, lid) {
   } else {
     s += `<path d="M${r2(cx - o * 7.4)} ${r2(cy - 1.2)} Q${r2(cx - o * 1)} ${r2(cy - (wide ? 11 : 9.8))} ${r2(cx + o * 7.6)} ${r2(cy - 3)}" fill="none" stroke="${INK}" stroke-width="2.6" stroke-linecap="round"/>`;
   }
-  return s + flick +
+  const crease = kind === 'half' ? '' : `<path d="M${r2(cx - 6)} ${r2(cy - 7.4)} Q${cx} ${r2(cy - 12.6)} ${r2(cx + 6)} ${r2(cy - 7.4)}" fill="none" stroke="rgba(90,40,40,.38)" stroke-width="1.1" stroke-linecap="round"/>`;
+  return s + flick + crease +
     `<path d="M${r2(cx - 5)} ${r2(cy + ry - 0.8)} Q${cx} ${r2(cy + ry + 1.4)} ${r2(cx + 5)} ${r2(cy + ry - 0.8)}" fill="none" stroke="rgba(90,40,40,.45)" stroke-width="1"/>`;
 }
 
@@ -200,11 +203,12 @@ function faceSVG(expr, o) {
     bored:     ['M101 43 L118 44.5', 'M122 44.5 L139 43']
   }[expr] || ['M101 42 Q109 37 118 40.5', 'M122 40.5 Q131 37 139 42'];
   s += BR.map(d => `<path d="${d}" fill="none" stroke="${brow}" stroke-width="2.2" stroke-linecap="round"/>`).join('');
-  s += `<path d="M120 59 Q122 61.4 119.4 62" fill="none" stroke="rgba(120,60,40,.65)" stroke-width="1.2" stroke-linecap="round"/>`;
+  s += `<ellipse cx="120.4" cy="62.6" rx="3.2" ry="1.1" fill="#7a3a2a" opacity=".28"/>` +
+    `<path d="M120 58.6 Q122.4 61.6 119.2 62.2" fill="none" stroke="rgba(120,60,40,.7)" stroke-width="1.3" stroke-linecap="round"/>`;
   const ms = `fill="none" stroke="${INK}" stroke-width="2" stroke-linecap="round"`;
   if (expr === 'happy') {
-    s += `<path d="M111 64 Q120 67 129 64 Q126 75 120 75 Q114 75 111 64 Z" fill="#5b1226" stroke="${INK}" stroke-width="1.4" stroke-linejoin="round"/>` +
-      `<path d="M112.6 64.8 Q120 67.6 127.4 64.8 Q120 69.4 112.6 64.8 Z" fill="#fff"/><ellipse cx="120" cy="72.4" rx="3.4" ry="1.8" fill="#e8707f"/>`;
+    s += `<path d="M112.5 64.6 Q120 66.8 127.5 64.6 Q125.6 72.8 120 72.8 Q114.4 72.8 112.5 64.6 Z" fill="#7a1d33" stroke="${INK}" stroke-width="1.2" stroke-linejoin="round"/>` +
+      `<path d="M114 65.4 Q120 67.4 126 65.4 Q120 69.2 114 65.4 Z" fill="#fff"/><ellipse cx="120" cy="70.8" rx="3" ry="1.5" fill="#e8707f"/>`;
     if (braces) {
       s += `<path d="M113 65.8 Q120 68.6 127 65.8" fill="none" stroke="#8a93a6" stroke-width="1.2"/>`;
       for (const x of [115, 117.8, 120.6, 123.4, 125.6]) s += `<circle cx="${x}" cy="${r2(66.8 + (x - 120) * (x - 120) * 0.012)}" r="1.1" fill="#d6dcea" stroke="#6a7386" stroke-width=".5"/>`;
@@ -366,13 +370,25 @@ export function figureGroup(id, o = {}) {
   const mainC = out.main, darkC = out.second;
   const darkMid = mix(darkC, '#ffffff', 0.1);
 
-  let s = `<defs>
+  const defs = `<defs>
     <linearGradient id="${g}h" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${mix(hairC, '#000', 0.4)}"/><stop offset=".5" stop-color="${hairC}"/><stop offset="1" stop-color="${hairEnd}"/></linearGradient>
     <linearGradient id="${g}t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${lightOf(mainC)}"/><stop offset=".55" stop-color="${mainC}"/><stop offset="1" stop-color="${shadeOf(mainC)}"/></linearGradient>
     <linearGradient id="${g}k" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${skinHi}"/><stop offset=".45" stop-color="${skin}"/><stop offset="1" stop-color="${skinSh}"/></linearGradient>
     <linearGradient id="${g}i" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${mix(ch.eyes, '#000', 0.6)}"/><stop offset=".55" stop-color="${ch.eyes}"/><stop offset="1" stop-color="${mix(ch.eyes, '#fff', 0.5)}"/></linearGradient>
     ${ex.cape ? `<linearGradient id="${g}c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${ex.cape.inner}"/><stop offset="1" stop-color="${ex.cape.color}"/></linearGradient>` : ''}
+    <filter id="${g}r" x="-15%" y="-8%" width="130%" height="116%">
+      <feOffset in="SourceAlpha" dx="-3.2" dy="0" result="oL"/><feComposite in="SourceAlpha" in2="oL" operator="out" result="edgeR"/>
+      <feFlood flood-color="#8fb4ff" flood-opacity=".6" result="fR"/><feComposite in="fR" in2="edgeR" operator="in" result="rimR"/>
+      <feOffset in="SourceAlpha" dx="3.2" dy="0" result="oR"/><feComposite in="SourceAlpha" in2="oR" operator="out" result="edgeL"/>
+      <feFlood flood-color="#ff8ad8" flood-opacity=".4" result="fL"/><feComposite in="fL" in2="edgeL" operator="in" result="rimL"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="rimR"/><feMergeNode in="rimL"/></feMerge>
+    </filter>
   </defs>`;
+  // Het bovenlijf (romp, hoofd, armen) kantelt een klein beetje; benen en heupen blijven staan. Daarom bouwen we in lagen.
+  let s = '';
+  const parts = [];
+  const tilt = pose.tilt || 0, rot = tilt ? `rotate(${tilt} ${CX} 170)` : '';
+  const flush = turn => { parts.push(turn && rot ? `<g transform="${rot}">${s}</g>` : s); s = ''; };
 
   /* 1. cape en haar achter het lichaam */
   if (ex.cape) {
@@ -383,6 +399,7 @@ export function figureGroup(id, o = {}) {
   // het hoofd is iets groter getekend, zodat je het gezicht ook op een klein scherm ziet (draaipunt = de kin)
   const HEAD = 'translate(120 76) scale(1.24) translate(-120 -76)';
   s += `<g transform="${HEAD}">${HAIR[style].back(g, hairC, hairA)}</g>`;
+  flush(true);
 
   /* 2. benen, kniebeschermers en laarzen */
   const thighW = [[0, 36 * lw], [0.5, 29 * lw], [1, 22 * lw]], calfW = [[0, 21.5 * lw], [0.28, 23 * lw], [1, 11 * lw]];
@@ -414,6 +431,8 @@ export function figureGroup(id, o = {}) {
     s += `<path d="M${X(5)} ${fy + 17.5} L${X(-15)} ${fy + 17.5}" stroke="${shadeOf(out.boots)}" stroke-width="3.6" stroke-linecap="round"/>`;
   }
 
+  flush(false);
+
   /* 3. romp */
   const { a, w, h } = b;
   const torso = `M${CX - a} 98 C${CX - a + 2} 88 ${CX - 18} 84 ${CX} 84 C${CX + 18} 84 ${CX + a - 2} 88 ${CX + a} 98 ` +
@@ -423,6 +442,7 @@ export function figureGroup(id, o = {}) {
   s += `<path d="${torso}" fill="url(#${g}k)" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>`;
   s += part([[CX, 64], [CX, 96]], [[0, 15], [1, 19]], skin, skinSh, skinHi);
   s += `<path d="M110 76 Q120 86 130 76 Q120 92 110 76 Z" fill="${skinSh}" opacity=".4"/>`;
+  flush(true);
   // broekband en heupen
   s += `<path d="M${CX - w - 3} 166 C${CX - 12} 172 ${CX + 12} 172 ${CX + w + 3} 166 C${CX + h + 1} 180 ${CX + h + 3} 194 ${CX + h} 206 C${CX + h - 8} 216 ${CX - h + 8} 216 ${CX - h} 206 C${CX - h - 3} 194 ${CX - h - 1} 180 ${CX - w - 3} 166 Z" fill="${darkMid}" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>`;
   s += `<path d="M${CX - w - 3} 166 C${CX - 12} 172 ${CX + 12} 172 ${CX + w + 3} 166 L${CX + w + 4.5} 174 C${CX + 12} 180 ${CX - 12} 180 ${CX - w - 4.5} 174 Z" fill="${out.waist}" stroke="${INK}" stroke-width="1.4"/>`;
@@ -438,8 +458,9 @@ export function figureGroup(id, o = {}) {
       }
     }
   }
+  flush(false);
   // top
-  const topP = `M${CX - a + 2} 102 L${CX - a + 8} 92 C${CX - a + 16} 86 ${CX - 11} 88 ${CX - 8} 94 C${CX - 6} 108 ${CX + 6} 108 ${CX + 8} 94 C${CX + 11} 88 ${CX + a - 16} 86 ${CX + a - 8} 92 L${CX + a - 2} 102 ` +
+  const topP =`M${CX - a + 2} 102 L${CX - a + 8} 92 C${CX - a + 16} 86 ${CX - 11} 88 ${CX - 8} 94 C${CX - 6} 108 ${CX + 6} 108 ${CX + 8} 94 C${CX + 11} 88 ${CX + a - 16} 86 ${CX + a - 8} 92 L${CX + a - 2} 102 ` +
     `C${CX + a + 1} 120 ${CX + w + 4} 130 ${CX + w + 2} 146 C${CX + w + 1} 156 ${CX + w + 1} 164 ${CX + w + 5} 174 C${CX + w - 10} 182 ${CX - w + 10} 182 ${CX - w - 5} 174 ` +
     `C${CX - w - 1} 164 ${CX - w - 1} 156 ${CX - w - 2} 146 C${CX - w - 4} 130 ${CX - a - 1} 120 ${CX - a + 2} 102 Z`;
   s += `<path d="${topP}" fill="url(#${g}t)" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>`;
@@ -520,13 +541,16 @@ export function figureGroup(id, o = {}) {
   }
   for (const side of [-1, 1]) {
     const H = arms[side].H, hc = out.gloves || skin, hs = out.gloves ? shadeOf(out.gloves) : skinSh;
+    const tx = r2(H[0] - side * 6.5 * aw), ty = r2(H[1] - 1);
+    s += `<ellipse cx="${tx}" cy="${ty}" rx="${r2(3.4 * aw)}" ry="${r2(5.2 * aw)}" transform="rotate(${-side * 28} ${tx} ${ty})" fill="${hc}" stroke="${INK}" stroke-width="1.8"/>`;
     s += `<ellipse cx="${r2(H[0])}" cy="${r2(H[1] + 3)}" rx="${r2(8 * aw)}" ry="${r2(7.5 * aw)}" fill="${hc}" stroke="${INK}" stroke-width="2"/>`;
     s += `<path d="M${r2(H[0] - 4)} ${r2(H[1] + 1)} v6 M${r2(H[0])} ${r2(H[1] + 1)} v7 M${r2(H[0] + 4)} ${r2(H[1] + 1)} v6" stroke="${hs}" stroke-width="1.2" stroke-linecap="round" fill="none"/>`;
   }
   if (item === 'flowers') s += bouquet(HR, 2.1);
 
+  flush(true);
   const k = 0.49;
-  return `<g transform="translate(60 0) scale(${k}) translate(-${CX} ${pose.dy || 0})">${s}</g>`;
+  return `<g transform="translate(60 0) scale(${k}) translate(-${CX} ${pose.dy || 0})"><g filter="url(#${g}r)">${defs}${parts.join('')}</g></g>`;
 }
 
 /* ---------- losse figuren (portretten) ---------- */

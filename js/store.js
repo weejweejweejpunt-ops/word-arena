@@ -49,7 +49,7 @@ export function markSeen(key) {
   if (!r.seen) { r.seen = true; put(key, r); }
 }
 
-/** Een antwoord in "Kiezen". Geeft de nieuwe gegevens terug. */
+/** Een antwoord in de oefenmatch. Geeft de nieuwe gegevens terug. */
 export function recordAnswer(key, correct) {
   const r = rec(key), t = today();
   r.seen = true; r.tries++;
@@ -90,7 +90,7 @@ function shuffle(a) {
 const byBox = (a, b) => a.r.box - b.r.box || a.r.due - b.r.due;
 
 /**
- * Kiezen (oefenen): eerst woorden die fout gingen, dan woorden die aan de beurt zijn,
+ * Oefenmatch: eerst woorden die fout gingen, dan woorden die aan de beurt zijn,
  * dan woorden die ze alleen bekeken heeft, dan nieuwe woorden, en tot slot de rest.
  */
 export function pickQuiz(words, n) {

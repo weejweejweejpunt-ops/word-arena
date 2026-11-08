@@ -72,7 +72,41 @@ function screen({ title, back, gear = true, body, foot = '' }) {
     (gear ? `<a class="nav right" href="#/settings" aria-label="Instellingen"><span aria-hidden="true">⚙&#xFE0E;</span></a>` : `<span class="nav ghost">.</span>`) +
     `</header><main class="main" id="main">${body}</main><footer class="foot">${foot}</footer>`;
   const m = document.getElementById('main'); if (m) m.scrollTop = 0;
+  wireImages();
 }
+
+/* ---------- eigen plaatjes, met een tekening als reserve ---------- */
+const fallbacks = new Map();
+let fbN = 0;
+/** Een <img>. Ontbreekt het bestand, dan komt er een tekening voor in de plaats (fbCls = klasse, fbHtml = functie die de tekening geeft). */
+function photo(src, cls, alt, fbCls, fbHtml) {
+  const k = 'fb' + (++fbN);
+  fallbacks.set(k, { cls: fbCls, html: fbHtml });
+  return `<img class="${cls}" src="${src}" alt="${esc(alt)}" data-fb="${k}" decoding="async">`;
+}
+function wireImages() {
+  document.querySelectorAll('img[data-fb]').forEach(img => {
+    const swap = () => {
+      const fb = fallbacks.get(img.dataset.fb);
+      if (!fb || !img.isConnected) return;
+      const div = document.createElement('div');
+      div.className = fb.cls;
+      div.innerHTML = fb.html();
+      img.replaceWith(div);
+    };
+    img.addEventListener('error', swap, { once: true });
+    if (img.complete && img.naturalWidth === 0) swap();
+  });
+}
+const LINEUP = { cast: [
+  { who: 'dahlia', pose: 'flex', face: 'proud' },
+  { who: 'vera', pose: 'wave', face: 'happy' },
+  { who: 'ivy', pose: 'stand', face: 'happy' },
+  { who: 'nova', pose: 'stand', face: 'proud' }
+] };
+/** Pasfoto van een worstelaarster, met een rand in haar eigen kleur. */
+const pas = id => !CH[id] ? '' :
+  `<span class="pas-wrap" style="--c:${CH[id].color}">${photo(`images/pas-${id}.webp`, 'pas', CH[id].name, 'fbpas', () => portraitSVG(id, { view: 'bust', face: 'happy' }))}</span>`;
 
 function scopeInfo(scope) {
   if (scope === 'all') return { id: 'all', title: 'Alle lessen', words: WORDS, lesson: null };
@@ -93,44 +127,67 @@ function route() {
   if (!['learn', 'quiz', 'result'].includes(name)) round = null;
   if (name !== 'settings') { lastMain = location.hash || '#/'; askReset = false; }
   switch (name) {
+    case 'lessons': return lessonsScreen();
     case 'lesson': return lessonScreen(arg);
     case 'learn': return roundScreen('learn', arg);
     case 'quiz': return roundScreen('quiz', arg);
     case 'result': return resultScreen();
     case 'settings': return settingsScreen();
     case 'wrestlers': return wrestlersScreen();
-    default: return homeScreen();
+    default: return openingScreen();
   }
 }
 const go = h => { if (location.hash === h) route(); else location.hash = h; };
 
-/* ---------- home ---------- */
-function homeScreen() {
-  const lineup = sceneSVG({ cast: [
-    { who: 'dahlia', pose: 'flex', face: 'proud' },
-    { who: 'vera', pose: 'wave', face: 'happy' },
-    { who: 'ivy', pose: 'stand', face: 'happy' },
-    { who: 'nova', pose: 'stand', face: 'proud' }
-  ] });
-  const cards = LESSONS.map(l => `
-    <li><a class="lesson-card" href="#/lesson/${l.id}">
-      <div class="lc-title">Les ${l.number}</div>
-      <div class="lc-sub">${esc(l.title)}${l.subtitle ? ' · ' + esc(l.subtitle) : ''}</div>
-      ${beltBlock(l.words)}
-      <div class="meta">${knownText(l.words)}</div>
-    </a></li>`).join('');
-  const all = LESSONS.length > 1 ? `
-    <li><a class="lesson-card" href="#/lesson/all">
-      <div class="lc-title">Alles samen</div>
-      ${beltBlock(WORDS)}
-      <div class="meta">${knownText(WORDS)}</div>
-    </a></li>` : '';
+/* ---------- opening: wat is de bedoeling? ---------- */
+function openingScreen() {
+  const s = store.settings();
   screen({
-    title: 'Word Arena', gear: true,
-    body: `<a class="hero pic" href="#/wrestlers" aria-label="Ontmoet de worstelaarsters">${lineup}</a>
+    title: 'Word Arena',
+    body: `${photo('images/groep.webp', 'hero-photo', 'Dahlia, Iron Ivy, Vera en Nova in de arena', 'hero pic', () => sceneSVG(LINEUP))}
+      <h2 class="welcome">Welkom in de arena</h2>
+      <p class="lead2">Hier leer je Engelse woordjes. Je leert ze samen met vier worstelaarsters.</p>
       <a class="meet" href="#/wrestlers">Ontmoet de worstelaarsters →</a>
-      <p class="lead">Kies een les.</p>
-      <ul class="lessons">${cards}${all}</ul>`
+
+      <h2 class="section-title">Zo werkt het</h2>
+      <ol class="steps">
+        <li><strong>Kies een les.</strong> Je ziet de woorden uit je schoolboek: Unit 1, Study box.</li>
+        <li><strong>Leren.</strong> Je bekijkt een woord met een plaatje. Tik op het luidsprekertje om het te horen.</li>
+        <li><strong>Oefenmatch.</strong> Je oefent in een match. Bij elk woord kies je het goede antwoord uit 4 mogelijkheden.</li>
+        <li><strong>Klaar na ${s.roundSize} woorden.</strong> Dan zie je hoeveel je goed had en hoe vol je riem is.</li>
+      </ol>
+
+      <h2 class="section-title">Goed om te weten</h2>
+      <ul class="notes">
+        <li>Er is geen tijd. Je hoeft niet te haasten.</li>
+        <li>Een fout antwoord is niet erg. Je ziet dan het goede antwoord.</li>
+        <li>Woorden die je fout had, komen later terug. Zo leer je ze.</li>
+        <li>Je kunt altijd stoppen. Je voortgang blijft bewaard.</li>
+        <li>Het geluid staat uit. Jij kiest wanneer je een woord hoort.</li>
+      </ul>
+
+      <h2 class="section-title">Je riem</h2>
+      <div class="belt" aria-hidden="true">${progressBeltSVG(0.6, '')}</div>
+      <p>Elk woord dat je goed kent, vult je riem een stukje. Is je riem vol? Dan heb je de les gewonnen. Je riem gaat nooit omlaag.</p>`,
+    foot: `<div class="foot-row one"><a class="btn primary" href="#/lessons">Kies je les</a></div>`
+  });
+}
+
+/* ---------- les kiezen ---------- */
+function lessonsScreen() {
+  const card = (href, pasHtml, title, sub, words) => `
+    <li><a class="lesson-card" href="${href}">
+      <div class="lc-row">${pasHtml}<div><div class="lc-title">${title}</div><div class="lc-sub">${sub}</div></div></div>
+      ${beltBlock(words)}
+      <div class="meta">${knownText(words)}</div>
+    </a></li>`;
+  const cards = LESSONS.map(l => card(`#/lesson/${l.id}`, pas(l.host), `Les ${l.number}`,
+    `${esc(l.title)}${l.subtitle ? ' · ' + esc(l.subtitle) : ''}`, l.words)).join('');
+  const groupPas = `<span class="pas-wrap">${photo('images/groep.webp', 'pas', 'Alle worstelaarsters', 'fbpas', () => sceneSVG(LINEUP))}</span>`;
+  const all = LESSONS.length > 1 ? card('#/lesson/all', groupPas, 'Alles samen', 'Alle lessen door elkaar', WORDS) : '';
+  screen({
+    title: 'Kies je les', back: { href: '#/', label: 'Terug' },
+    body: `<ul class="lessons">${cards}${all}</ul>`
   });
 }
 
@@ -139,16 +196,16 @@ const DIRS = [['book', 'Zoals in het boek'], ['en-nl', 'Engels → Nederlands'],
 
 function lessonScreen(scope) {
   const info = scopeInfo(scope);
-  if (!info) return go('#/');
+  if (!info) return go('#/lessons');
   const w = info.words, s = store.settings();
-  const face = (id, pose) => `<div class="face">${portraitSVG(id, { view: 'bust', face: 'happy' })}</div>`;
+  const face = id => pas(id);
   const sub = info.lesson ? `<h2 class="lesson-name">${esc(info.lesson.title)} <span>· ${esc(info.lesson.subtitle || '')}</span></h2>` : '';
   screen({
-    title: info.lesson ? `Les ${info.lesson.number}` : 'Alle lessen', back: { href: '#/', label: 'Terug' },
+    title: info.lesson ? `Les ${info.lesson.number}` : 'Alle lessen', back: { href: '#/lessons', label: 'Terug' },
     body: `${sub}${beltBlock(w)}
       <p class="meta">${knownText(w)}. Riem ${pct(store.beltProgress(w))}% gevuld.</p>
-      <a class="mode" href="#/learn/${scope}">${face('ivy')}<div><strong>Leren</strong><span>Bekijk de woorden met een plaatje. Een match is ${s.roundSize} woorden.</span></div></a>
-      <a class="mode" href="#/quiz/${scope}">${face('vera')}<div><strong>Kiezen</strong><span>Kies het goede antwoord uit 4. Fout? Dan zie je het juiste antwoord.</span></div></a>
+      <a class="mode" href="#/learn/${scope}">${face('ivy')}<div><strong>Leren</strong><span>Bekijk de woorden met een plaatje en luister naar het woord.</span></div></a>
+      <a class="mode" href="#/quiz/${scope}">${face('vera')}<div><strong>Oefenmatch</strong><span>Een match van ${s.roundSize} woorden. Kies steeds het goede antwoord uit 4. Fout? Dan zie je het juiste antwoord.</span></div></a>
       <h2 class="section-title">Welke kant op?</h2>
       <div class="chips" role="group" aria-label="Richting">
         ${DIRS.map(([v, t]) => `<button type="button" class="chip" data-act="dir" data-v="${v}" aria-pressed="${s.direction === v}">${t}</button>`).join('')}
@@ -193,7 +250,7 @@ function startRound(mode, scope) {
 }
 
 function roundScreen(mode, scope) {
-  if (!scopeInfo(scope)) return go('#/');
+  if (!scopeInfo(scope)) return go('#/lessons');
   if (!round || round.mode !== mode || round.scope !== scope || round.done) startRound(mode, scope);
   if (!round.items.length) return go('#/lesson/' + scope);
   mode === 'learn' ? learnCard() : quizQuestion();
@@ -241,12 +298,12 @@ function learnCard() {
   if (fromEn && !round.flipped) maybeAutoSpeak(w.en);
 }
 
-/* ---------- Kiezen (meerkeuze) ---------- */
+/* ---------- Oefenmatch (meerkeuze) ---------- */
 function quizQuestion() {
   const q = round.items[round.i], w = q.word, fromEn = q.dir === 'en-nl';
   const prompt = fromEn ? w.en : w.nl;
   screen({
-    title: 'Kiezen', back: stopLink(), gear: false,
+    title: 'Oefenmatch', back: stopLink(), gear: false,
     body: `${progressBlock()}<div class="pic">${pictureSVG(w)}</div>
       <div class="word-block">
         <p class="small-label">${fromEn ? 'Kies de Nederlandse betekenis.' : 'Kies het Engelse woord.'}</p>
@@ -305,7 +362,7 @@ function next() {
 
 /* ---------- resultaat ---------- */
 function resultScreen() {
-  if (!round || !round.done) return go('#/');
+  if (!round || !round.done) return go('#/lessons');
   const { mode, scope, info, results } = round;
   const words = info.words;
   const after = store.beltProgress(words);
@@ -317,7 +374,7 @@ function resultScreen() {
     figure = portraitSVG('ivy', { pose: 'present', face: 'happy' });
     heading = 'Goed gedaan!';
     sub = `Je hebt ${total} woorden bekeken.`;
-    extra = `<p class="meta" style="margin-top:.8rem">Wil je het nu oefenen? Dan kun je ‘Kiezen’ doen.</p>`;
+    extra = `<p class="meta" style="margin-top:.8rem">Wil je het nu oefenen? Dan kun je een oefenmatch doen.</p>`;
   } else {
     const good = results.filter(r => r.ok).length, miss = results.filter(r => !r.ok);
     const champion = round.beltBefore < 0.999 && after >= 0.999;
@@ -381,9 +438,30 @@ function wrestlersScreen() {
   screen({
     title: 'Worstelaarsters', back: { href: '#/', label: 'Terug' },
     body: Object.entries(CH).map(([id, c]) => `
-      <div class="wcard"><div class="fig">${portraitSVG(id, show[id] || {})}</div>
+      <div class="wcard" data-id="${id}"><div class="fig">${portraitSVG(id, show[id] || {})}</div>
         <div><h2><span class="dot" style="background:${c.color}"></span>${esc(c.name)}</h2><p class="t">${esc(c.title)}</p><p>${esc(c.blurb)}</p></div></div>`).join('')
   });
+  // Eigen plaatjes (bijvoorbeeld gemaakt met een AI-tool): images/<naam>.webp, .png of .jpg.
+  // Lukt het laden niet, dan blijft gewoon de tekening staan.
+  document.querySelectorAll('.wcard').forEach(card => tryImage(card, card.dataset.id, ['webp', 'png', 'jpg']));
+}
+
+function tryImage(card, id, exts) {
+  const [ext, ...rest] = exts;
+  if (!ext) return;
+  const img = new Image();
+  img.alt = '';
+  img.className = 'wimg';
+  img.decoding = 'async';
+  img.onload = () => {
+    if (!card.isConnected) return;
+    const fig = card.querySelector('.fig');
+    fig.innerHTML = '';
+    fig.appendChild(img);
+    card.classList.add('big');
+  };
+  img.onerror = () => tryImage(card, id, rest);
+  img.src = `images/${id}.${ext}`;
 }
 
 /* ---------- knoppen ---------- */
