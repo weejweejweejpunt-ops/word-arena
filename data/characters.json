@@ -1,0 +1,111 @@
+{
+  "_uitleg": "Alle gegevens van de worstelaarsters staan in dit ene bestand. Pas hier namen, kleuren, haar en kleding aan; de tekening past zich vanzelf aan. De sleutel (dahlia, vera, ivy, nova) wordt in de woordenlijsten gebruikt als {dahlia}, {vera}, {ivy}, {nova}.",
+  "characters": {
+    "dahlia": {
+      "name": "Dahlia Dynamo",
+      "title": "De krachtpatser",
+      "blurb": "Sterk en vrolijk. Ze houdt van zware training en deelt na elke match bloemen uit.",
+      "color": "#e8408f",
+      "build": "strong",
+      "skin": "#b0693f",
+      "eyes": "#2b1a14",
+      "hair": { "style": "mohawk", "color": "#1d1722", "accent": "#ff5fa8" },
+      "outfit": {
+        "bottom": "trunks",
+        "main": "#e8408f",
+        "second": "#1d1722",
+        "trim": "#ffd3e6",
+        "waist": "#e8408f",
+        "panels": true,
+        "boots": "#1d1722",
+        "bootTrim": "#e8408f",
+        "bootTall": false,
+        "wraps": "#ffffff",
+        "emblem": "flower",
+        "emblemColor": "#ffd3e6"
+      },
+      "extras": {}
+    },
+    "vera": {
+      "name": "Vera Volt",
+      "title": "De bliksem",
+      "blurb": "Supersnel. Ze springt van de touwen en staat nooit stil.",
+      "color": "#f7c61e",
+      "build": "lean",
+      "skin": "#f2c9a8",
+      "eyes": "#2f6f4f",
+      "hair": { "style": "ponytail", "color": "#c4571f", "accent": "#1c1a24" },
+      "outfit": {
+        "bottom": "shorts",
+        "main": "#f7c61e",
+        "second": "#1c1a24",
+        "trim": "#fff2a8",
+        "waist": "#f7c61e",
+        "panels": false,
+        "boots": "#f7c61e",
+        "bootTrim": "#1c1a24",
+        "bootTall": true,
+        "wraps": "#1c1a24",
+        "emblem": "bolt",
+        "emblemColor": "#1c1a24"
+      },
+      "extras": {}
+    },
+    "ivy": {
+      "name": "Iron Ivy",
+      "title": "De denker",
+      "blurb": "Rustig en slim. Ze kent elke worstelgreep en legt alles stap voor stap uit.",
+      "color": "#2fa866",
+      "build": "medium",
+      "skin": "#e0b080",
+      "eyes": "#1f3b66",
+      "hair": { "style": "straight", "color": "#23283d", "accent": "#23283d" },
+      "outfit": {
+        "bottom": "tights",
+        "main": "#2fa866",
+        "second": "#14503a",
+        "trim": "#bff0d3",
+        "waist": "#bff0d3",
+        "panels": false,
+        "boots": "#0f2f24",
+        "bootTrim": "#2fa866",
+        "bootTall": false,
+        "pads": "knee",
+        "padColor": "#bff0d3",
+        "wraps": "#bff0d3",
+        "emblem": "leaf",
+        "emblemColor": "#bff0d3"
+      },
+      "extras": { "glasses": "#14503a", "headband": "#bff0d3" }
+    },
+    "nova": {
+      "name": "Nova Knight",
+      "title": "De mysterieuze",
+      "blurb": "Draagt een masker en een cape. Niemand weet precies wie ze is, maar ze is heel aardig.",
+      "color": "#7c4dff",
+      "build": "tall",
+      "skin": "#7b4a33",
+      "eyes": "#b9a3ff",
+      "hair": { "style": "wavy", "color": "#241552", "accent": "#7a5cf0" },
+      "outfit": {
+        "bottom": "tights",
+        "main": "#6c3df0",
+        "second": "#2b1a5c",
+        "trim": "#dcd7ff",
+        "waist": "#dcd7ff",
+        "panels": false,
+        "sleeves": "long",
+        "gloves": "#2b1a5c",
+        "boots": "#2b1a5c",
+        "bootTrim": "#dcd7ff",
+        "bootTall": true,
+        "emblem": "star",
+        "emblemColor": "#dcd7ff"
+      },
+      "extras": {
+        "mask": "#8f72ff",
+        "cape": { "color": "#3b2386", "inner": "#7c4dff" }
+      }
+    }
+  }
+}

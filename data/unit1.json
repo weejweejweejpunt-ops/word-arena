@@ -1,0 +1,834 @@
+{
+  "id": "unit1",
+  "title": "Unit 1",
+  "lessons": [
+    {
+      "id": "u1l2",
+      "number": 2,
+      "title": "Appearances",
+      "subtitle": "Uiterlijk",
+      "words": [
+        {
+          "id": "athletic", "en": "athletic", "nl": "atletisch", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "vera", "pose": "jump", "face": "proud" } ] } },
+          "sentence": "{vera} is very **athletic**.",
+          "sentenceNl": "{vera} is heel atletisch."
+        },
+        {
+          "id": "bald", "en": "bald", "nl": "kaal", "dir": "en-nl",
+          "picture": { "emoji": "👨‍🦲" },
+          "sentence": "{dahlia}'s coach is **bald** and very kind.",
+          "sentenceNl": "De coach van {dahlia} is kaal en heel aardig."
+        },
+        {
+          "id": "birthmark", "en": "birthmark", "nl": "moedervlek", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "view": "bust", "face": "happy", "mods": ["birthmark"] } ] } },
+          "sentence": "{dahlia} has a small **birthmark** on her cheek.",
+          "sentenceNl": "{dahlia} heeft een kleine moedervlek op haar wang."
+        },
+        {
+          "id": "to-describe", "en": "to describe", "nl": "beschrijven", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "ivy", "pose": "present", "face": "happy", "x": 95 }, { "who": "dahlia", "face": "neutral", "x": 265 } ],
+            "props": [ { "t": "bubble", "x": 190, "y": 44, "w": 100, "h": 46, "c": "…", "tx": 128, "ty": 66 } ] } },
+          "sentence": "{ivy} can **describe** every move.",
+          "sentenceNl": "{ivy} kan elke beweging beschrijven."
+        },
+        {
+          "id": "dyed", "en": "dyed", "nl": "geverfd", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "dahlia", "view": "bust", "face": "happy", "x": 140, "hairColor": "#2f9bff", "hairAccent": "#9fd8ff" } ],
+            "props": [ { "t": "emoji", "c": "🎨", "x": 305, "y": 80, "s": 72 } ] } },
+          "sentence": "{dahlia} has **dyed** her hair blue.",
+          "sentenceNl": "{dahlia} heeft haar haar blauw geverfd."
+        },
+        {
+          "id": "fake", "en": "fake", "nl": "namaak, nep", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "ivy", "pose": "think", "face": "thinking", "x": 100 } ],
+            "props": [ { "t": "belt", "x": 262, "y": 130, "w": 150, "v": "fake" }, { "t": "emoji", "c": "❓", "x": 190, "y": 48, "s": 44 } ] } },
+          "sentence": "{ivy} sees that the belt is **fake**.",
+          "sentenceNl": "{ivy} ziet dat de riem nep is."
+        },
+        {
+          "id": "freckles", "en": "freckles", "nl": "sproeten", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "vera", "view": "bust", "face": "happy", "mods": ["freckles"] } ] } },
+          "sentence": "{vera} loves her **freckles**.",
+          "sentenceNl": "{vera} houdt van haar sproeten."
+        },
+        {
+          "id": "identical", "en": "identical", "nl": "hetzelfde", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "vera", "face": "happy", "x": 80 } ],
+            "props": [ { "t": "belt", "x": 235, "y": 76, "w": 150 }, { "t": "belt", "x": 235, "y": 148, "w": 150 }, { "t": "text", "c": "=", "x": 235, "y": 112, "s": 44 } ] } },
+          "sentence": "{vera} has two **identical** belts.",
+          "sentenceNl": "{vera} heeft twee identieke riemen."
+        },
+        {
+          "id": "to-look-bored", "en": "to look bored", "nl": "er verveeld uitzien", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "nova", "face": "bored", "x": 140 } ],
+            "props": [ { "t": "emoji", "c": "⏳", "x": 285, "y": 90, "s": 70 } ] } },
+          "sentence": "{nova} **looks bored** during the long speech.",
+          "sentenceNl": "{nova} ziet er verveeld uit tijdens de lange speech."
+        },
+        {
+          "id": "matching", "en": "matching", "nl": "bijpassende", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "ivy", "face": "proud", "x": 110 } ],
+            "props": [ { "t": "emoji", "c": "🧦", "x": 245, "y": 90, "s": 76 }, { "t": "emoji", "c": "🧤", "x": 305, "y": 150, "s": 66 } ] } },
+          "sentence": "{ivy} wears **matching** socks and gloves.",
+          "sentenceNl": "{ivy} draagt bijpassende sokken en handschoenen."
+        },
+        {
+          "id": "muscular", "en": "muscular", "nl": "gespierd", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "pose": "flex", "face": "proud" } ] } },
+          "sentence": "{ivy} is very **muscular**.",
+          "sentenceNl": "{ivy} is heel gespierd."
+        },
+        {
+          "id": "to-recognise", "en": "to recognise", "nl": "herkennen", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "dahlia", "pose": "wave", "face": "happy", "x": 95 }, { "who": "nova", "face": "surprised", "x": 265 } ],
+            "props": [ { "t": "emoji", "c": "🔍", "x": 180, "y": 100, "s": 66 } ] } },
+          "sentence": "{dahlia} can **recognise** {nova} in a big crowd.",
+          "sentenceNl": "{dahlia} kan {nova} herkennen in een grote menigte."
+        },
+        {
+          "id": "scar", "en": "scar", "nl": "litteken", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "nova", "view": "bust", "face": "proud", "mods": ["scar"] } ] } },
+          "sentence": "{nova} has a small **scar**. She is proud of it.",
+          "sentenceNl": "{nova} heeft een klein litteken. Ze is er trots op."
+        },
+        {
+          "id": "to-shave", "en": "to shave", "nl": "scheren", "dir": "en-nl",
+          "picture": { "emoji": "🧔➜🙂", "size": 92 },
+          "sentence": "{dahlia}'s coach **shaves** his beard before the match.",
+          "sentenceNl": "De coach van {dahlia} scheert zijn baard voor de match."
+        },
+        {
+          "id": "slightly", "en": "slightly", "nl": "een beetje", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "vera", "face": "happy", "x": 100 }, { "who": "nova", "face": "happy", "x": 245 } ],
+            "props": [ { "t": "hline", "x1": 100, "x2": 332, "y": 34 }, { "t": "hline", "x1": 245, "x2": 332, "y": 15 }, { "t": "harrow", "x": 322, "y1": 15, "y2": 34, "ah": 5 } ] } },
+          "sentence": "{nova} is **slightly** taller than {vera}.",
+          "sentenceNl": "{nova} is een beetje langer dan {vera}."
+        },
+        {
+          "id": "spot", "en": "spot", "nl": "puistje", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "view": "bust", "face": "happy", "mods": ["spot"] } ] } },
+          "sentence": "{ivy} has a **spot** on her chin. She just smiles.",
+          "sentenceNl": "{ivy} heeft een puistje op haar kin. Ze lacht gewoon."
+        },
+        {
+          "id": "tanned", "en": "tanned", "nl": "gebruind", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "vera", "pose": "wave", "face": "happy", "x": 125, "mods": ["tanned"] } ],
+            "props": [ { "t": "emoji", "c": "☀️", "x": 288, "y": 76, "s": 92 } ] } },
+          "sentence": "{vera} is **tanned** after her holiday.",
+          "sentenceNl": "{vera} is gebruind na haar vakantie."
+        },
+        {
+          "id": "wrinkles", "en": "wrinkles", "nl": "rimpels", "dir": "en-nl",
+          "picture": { "scene": {
+            "cast": [ { "who": "ivy", "face": "happy", "x": 100 } ],
+            "props": [ { "t": "emoji", "c": "👵", "x": 262, "y": 108, "s": 124 } ] } },
+          "sentence": "{ivy}'s grandma has **wrinkles**. They show how much she laughs.",
+          "sentenceNl": "De oma van {ivy} heeft rimpels. Die laten zien hoeveel ze lacht."
+        },
+
+        {
+          "id": "to-dress", "en": "to dress", "nl": "(aan)kleden", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "vera", "pose": "wave", "face": "happy", "x": 120 } ],
+            "props": [ { "t": "emoji", "c": "👕", "x": 285, "y": 105, "s": 96 } ] } },
+          "sentence": "{vera} **dresses** in yellow before every match.",
+          "sentenceNl": "{vera} kleedt zich in het geel voor elke match."
+        },
+        {
+          "id": "attractive", "en": "attractive", "nl": "aantrekkelijk", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "nova", "face": "proud", "x": 125 } ],
+            "props": [ { "t": "emoji", "c": "✨", "x": 272, "y": 80, "s": 76 }, { "t": "emoji", "c": "✨", "x": 315, "y": 140, "s": 44 } ] } },
+          "sentence": "{nova} has an **attractive** new cape.",
+          "sentenceNl": "{nova} heeft een aantrekkelijke nieuwe cape."
+        },
+        {
+          "id": "beard", "en": "beard", "nl": "baard", "dir": "nl-en",
+          "picture": { "emoji": "🧔" },
+          "sentence": "{ivy}'s coach has a long grey **beard**.",
+          "sentenceNl": "De coach van {ivy} heeft een lange grijze baard."
+        },
+        {
+          "id": "braces", "en": "braces", "nl": "beugel", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "view": "bust", "face": "happy", "mods": ["braces"] } ] } },
+          "sentence": "{vera} has **braces** and a big smile.",
+          "sentenceNl": "{vera} heeft een beugel en een grote glimlach."
+        },
+        {
+          "id": "contact-lenses", "en": "contact lenses", "nl": "contactlenzen", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "ivy", "view": "bust", "face": "happy", "x": 140, "mods": ["noGlasses"] } ],
+            "props": [ { "t": "emoji", "c": "👁️", "x": 303, "y": 92, "s": 72 } ] } },
+          "sentence": "{ivy} wears **contact lenses** in the ring.",
+          "sentenceNl": "{ivy} draagt contactlenzen in de ring."
+        },
+        {
+          "id": "thin", "en": "thin", "nl": "dun", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "nova", "face": "happy", "x": 110 } ],
+            "props": [
+              { "t": "book", "x": 248, "y": 198, "w": 38, "h": 100, "color": "#7c82b8" },
+              { "t": "book", "x": 282, "y": 198, "w": 11, "h": 100, "color": "#f5c542", "hl": true },
+              { "t": "book", "x": 318, "y": 198, "w": 30, "h": 90, "color": "#5f6599" } ] } },
+          "sentence": "{nova} reads a **thin** book about wrestling.",
+          "sentenceNl": "{nova} leest een dun boek over worstelen."
+        },
+        {
+          "id": "plain", "en": "plain", "nl": "gewoon", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "neutral", "x": 100, "mods": ["plain"] }, { "who": "dahlia", "face": "proud", "x": 260 } ] } },
+          "sentence": "{ivy} wears a **plain** white shirt. {dahlia} wears bright colours.",
+          "sentenceNl": "{ivy} draagt een gewoon wit shirt. {dahlia} draagt felle kleuren."
+        },
+        {
+          "id": "wavy", "en": "wavy (hair)", "nl": "golvend (haar)", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "nova", "view": "bust", "face": "happy" } ] } },
+          "sentence": "{nova} has long, **wavy** hair.",
+          "sentenceNl": "{nova} heeft lang, golvend haar."
+        },
+        {
+          "id": "good-looking", "en": "good-looking", "nl": "knap", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "vera", "pose": "wave", "face": "proud", "x": 125 } ],
+            "props": [ { "t": "emoji", "c": "📸", "x": 285, "y": 100, "s": 88 } ] } },
+          "sentence": "{vera} is **good-looking**, but also very funny.",
+          "sentenceNl": "{vera} is knap, maar ook heel grappig."
+        },
+        {
+          "id": "tall", "en": "tall", "nl": "lang", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "vera", "face": "happy", "x": 105, "scale": 0.82 }, { "who": "nova", "face": "proud", "x": 245, "scale": 1.0 } ],
+            "props": [ { "t": "harrow", "x": 325, "y1": 15, "y2": 198 } ] } },
+          "sentence": "{nova} is **tall**. She easily reaches the top rope.",
+          "sentenceNl": "{nova} is lang. Ze reikt makkelijk bij het bovenste touw."
+        },
+        {
+          "id": "height", "en": "height", "nl": "lengte", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "ivy", "face": "happy", "x": 140 } ],
+            "props": [ { "t": "harrow", "x": 235, "y1": 14, "y2": 198 }, { "t": "ticks", "x": 275, "y1": 10, "y2": 198 } ] } },
+          "sentence": "{ivy} checks her **height** on the wall.",
+          "sentenceNl": "{ivy} meet haar lengte tegen de muur."
+        },
+        {
+          "id": "cute", "en": "cute", "nl": "leuk", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "dahlia", "face": "happy", "x": 125 } ],
+            "props": [ { "t": "emoji", "c": "🐶", "x": 280, "y": 150, "s": 104 } ] } },
+          "sentence": "{dahlia} has a **cute** little puppy.",
+          "sentenceNl": "{dahlia} heeft een schattig hondje."
+        },
+        {
+          "id": "quite", "en": "quite", "nl": "nogal", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "dahlia", "pose": "flex", "face": "proud", "x": 125 } ],
+            "props": [ { "t": "gauge", "x": 285, "y": 110, "w": 120, "p": 0.7 } ] } },
+          "sentence": "{dahlia} is **quite** strong.",
+          "sentenceNl": "{dahlia} is nogal sterk."
+        },
+        {
+          "id": "old-fashioned", "en": "old-fashioned", "nl": "ouderwets", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "vera", "face": "happy", "x": 120 } ],
+            "props": [ { "t": "emoji", "c": "☎️", "x": 278, "y": 112, "s": 104 } ] } },
+          "sentence": "{vera} still uses an **old-fashioned** phone.",
+          "sentenceNl": "{vera} gebruikt nog een ouderwetse telefoon."
+        },
+        {
+          "id": "straight", "en": "straight (hair)", "nl": "steil (haar)", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "view": "half", "face": "proud" } ] } },
+          "sentence": "{ivy} has long, **straight** hair.",
+          "sentenceNl": "{ivy} heeft lang, steil haar."
+        },
+        {
+          "id": "tattoo", "en": "tattoo", "nl": "tatoeage", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "view": "half", "pose": "flex", "face": "proud", "mods": ["tattoo"] } ] } },
+          "sentence": "{dahlia} has a lightning **tattoo** on her arm.",
+          "sentenceNl": "{dahlia} heeft een bliksemtatoeage op haar arm."
+        },
+        {
+          "id": "looks", "en": "looks", "nl": "uiterlijk", "dir": "nl-en",
+          "picture": { "scene": {
+            "cast": [ { "who": "nova", "face": "proud", "x": 125 } ],
+            "props": [ { "t": "emoji", "c": "👀", "x": 282, "y": 100, "s": 84 } ] } },
+          "sentence": "{nova}'s **looks** are mysterious, but her heart is kind.",
+          "sentenceNl": "Het uiterlijk van {nova} is mysterieus, maar ze heeft een goed hart."
+        },
+        {
+          "id": "heavy", "en": "heavy", "nl": "zwaar", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "proud", "holds": { "item": "barbell" } } ] } },
+          "sentence": "{dahlia} lifts a **heavy** weight.",
+          "sentenceNl": "{dahlia} tilt een zwaar gewicht."
+        }
+      ]
+    },
+
+    {
+      "id": "u1l3",
+      "number": 3,
+      "title": "Food and drink",
+      "subtitle": "Eten en drinken",
+      "words": [
+        {
+          "id": "a-piece-of", "en": "a piece of", "nl": "een stuk(je)", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "happy", "x": 120 } ], "props": [ { "t": "emoji", "c": "🍰", "x": 275, "y": 105, "s": 100 } ] } },
+          "sentence": "{vera} eats **a piece of** cake after the match.",
+          "sentenceNl": "{vera} eet een stuk taart na de match."
+        },
+        {
+          "id": "american", "en": "American", "nl": "Amerikaans", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🗽", "x": 245, "y": 100, "s": 92 }, { "t": "emoji", "c": "🍔", "x": 315, "y": 150, "s": 56 } ] } },
+          "sentence": "{dahlia} eats an **American** burger.",
+          "sentenceNl": "{dahlia} eet een Amerikaanse hamburger."
+        },
+        {
+          "id": "bowl", "en": "bowl", "nl": "kom", "dir": "en-nl",
+          "picture": { "emoji": "🥣" },
+          "sentence": "{ivy} eats a **bowl** of fruit.",
+          "sentenceNl": "{ivy} eet een kom fruit."
+        },
+        {
+          "id": "crispy", "en": "crispy", "nl": "knapperig", "dir": "en-nl",
+          "picture": { "emoji": "🍟" },
+          "sentence": "{vera} loves **crispy** fries.",
+          "sentenceNl": "{vera} houdt van knapperige friet."
+        },
+        {
+          "id": "fresh", "en": "fresh", "nl": "vers", "dir": "en-nl",
+          "picture": { "emoji": "🥕🍅", "size": 100 },
+          "sentence": "{ivy} buys **fresh** vegetables at the market.",
+          "sentenceNl": "{ivy} koopt verse groenten op de markt."
+        },
+        {
+          "id": "italian", "en": "Italian", "nl": "Italiaans", "dir": "en-nl",
+          "picture": { "emoji": "🍕" },
+          "sentence": "{nova} loves **Italian** pizza.",
+          "sentenceNl": "{nova} houdt van Italiaanse pizza."
+        },
+        {
+          "id": "roasted", "en": "roasted", "nl": "geroosterd", "dir": "en-nl",
+          "picture": { "emoji": "🍗" },
+          "sentence": "{dahlia} eats **roasted** chicken after training.",
+          "sentenceNl": "{dahlia} eet geroosterde kip na de training."
+        },
+        {
+          "id": "shortly", "en": "shortly", "nl": "zometeen", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "pose": "wave", "face": "happy", "x": 120 } ], "props": [ { "t": "emoji", "c": "⏰", "x": 275, "y": 105, "s": 100 } ] } },
+          "sentence": "{ivy} will be back **shortly**.",
+          "sentenceNl": "{ivy} is zometeen terug."
+        },
+        {
+          "id": "side-dish", "en": "side dish", "nl": "bijgerecht", "dir": "en-nl",
+          "picture": { "emoji": "🍽️🥗", "size": 96 },
+          "sentence": "{dahlia} orders a salad as a **side dish**.",
+          "sentenceNl": "{dahlia} bestelt een salade als bijgerecht."
+        },
+        {
+          "id": "to-smell", "en": "to smell", "nl": "ruiken", "dir": "en-nl",
+          "picture": { "emoji": "👃🍞", "size": 100 },
+          "sentence": "{nova} can **smell** fresh bread.",
+          "sentenceNl": "{nova} kan vers brood ruiken."
+        },
+        {
+          "id": "well-done", "en": "well-done", "nl": "doorbakken", "dir": "en-nl",
+          "picture": { "emoji": "🥩🔥", "size": 100 },
+          "sentence": "{dahlia} always asks for her steak **well-done**.",
+          "sentenceNl": "{dahlia} vraagt altijd om een doorbakken biefstuk."
+        },
+
+        {
+          "id": "strawberry", "en": "strawberry", "nl": "aardbei", "dir": "nl-en",
+          "picture": { "emoji": "🍓" },
+          "sentence": "{vera} puts a **strawberry** on her cake.",
+          "sentenceNl": "{vera} legt een aardbei op haar taart."
+        },
+        {
+          "id": "to-feel-thirsty", "en": "to feel thirsty", "nl": "dorst hebben", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "thinking", "x": 115 } ], "props": [ { "t": "emoji", "c": "💧", "x": 250, "y": 90, "s": 70 }, { "t": "emoji", "c": "🥛", "x": 305, "y": 140, "s": 70 } ] } },
+          "sentence": "{vera} **feels thirsty** after the match.",
+          "sentenceNl": "{vera} heeft dorst na de match."
+        },
+        {
+          "id": "main-course", "en": "main course", "nl": "hoofdgerecht", "dir": "nl-en",
+          "picture": { "emoji": "🍝" },
+          "sentence": "{ivy} chooses pasta as her **main course**.",
+          "sentenceNl": "{ivy} kiest pasta als hoofdgerecht."
+        },
+        {
+          "id": "garlic", "en": "garlic", "nl": "knoflook", "dir": "nl-en",
+          "picture": { "scene": { "bg": "plain", "cast": [], "props": [ { "t": "garlic", "x": 180, "y": 118, "s": 1.7 } ] } },
+          "sentence": "{nova} adds **garlic** to the sauce.",
+          "sentenceNl": "{nova} doet knoflook in de saus."
+        },
+        {
+          "id": "tasty", "en": "tasty", "nl": "lekker", "dir": "nl-en",
+          "picture": { "emoji": "🥞😋", "size": 100 },
+          "sentence": "{vera} thinks the pancakes are **tasty**.",
+          "sentenceNl": "{vera} vindt de pannenkoeken lekker."
+        },
+        {
+          "id": "unusual", "en": "unusual", "nl": "ongewoon", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "nova", "face": "surprised", "x": 110 } ], "props": [ { "t": "emoji", "c": "🍕", "x": 240, "y": 115, "s": 80 }, { "t": "emoji", "c": "🍍", "x": 305, "y": 90, "s": 70 } ] } },
+          "sentence": "{nova} tries an **unusual** pizza with pineapple.",
+          "sentenceNl": "{nova} proeft een ongewone pizza met ananas."
+        },
+        {
+          "id": "beef", "en": "beef", "nl": "rundvlees", "dir": "nl-en",
+          "picture": { "emoji": "🐄➜🥩", "size": 80 },
+          "sentence": "{dahlia} cooks **beef** with rice.",
+          "sentenceNl": "{dahlia} kookt rundvlees met rijst."
+        },
+        {
+          "id": "orange", "en": "orange", "nl": "sinaasappel", "dir": "nl-en",
+          "picture": { "emoji": "🍊" },
+          "sentence": "{ivy} peels an **orange** after training.",
+          "sentenceNl": "{ivy} pelt een sinaasappel na de training."
+        },
+        {
+          "id": "soup", "en": "soup", "nl": "soep", "dir": "nl-en",
+          "picture": { "emoji": "🍲" },
+          "sentence": "{nova} loves hot tomato **soup**.",
+          "sentenceNl": "{nova} houdt van warme tomatensoep."
+        },
+        {
+          "id": "dessert", "en": "dessert", "nl": "toetje", "dir": "nl-en",
+          "picture": { "emoji": "🍨" },
+          "sentence": "{dahlia} is full, but she still wants **dessert**.",
+          "sentenceNl": "{dahlia} zit vol, maar wil toch een toetje."
+        },
+        {
+          "id": "excellent", "en": "excellent", "nl": "uitstekend", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "pose": "victory", "face": "happy", "x": 95 } ], "props": [ { "t": "emoji", "c": "⭐⭐⭐⭐⭐", "x": 250, "y": 100, "s": 28 } ] } },
+          "sentence": "{vera} thinks the pizza is **excellent**!",
+          "sentenceNl": "{vera} vindt de pizza uitstekend!"
+        },
+        {
+          "id": "pork", "en": "pork", "nl": "varkensvlees", "dir": "nl-en",
+          "picture": { "emoji": "🐖➜🍖", "size": 80 },
+          "sentence": "{vera} cooks **pork** with potatoes.",
+          "sentenceNl": "{vera} kookt varkensvlees met aardappels."
+        }
+      ],
+      "expressions": [
+        {
+          "group": "A", "title": "Je praat over wat iemand (niet) lekker vindt",
+          "items": [
+            { "nl": "Wat is je lievelingsgerecht?", "en": "What's your favourite dish?" },
+            { "nl": "Wat denk je van een loempia?", "en": "How about a spring roll?" },
+            { "nl": "Zou je oesters willen proberen?", "en": "Would you try eating oysters?" },
+            { "nl": "Ik heb liever mineraalwater dan ijsthee.", "en": "I prefer mineral water to ice tea." },
+            { "nl": "Ik ben dol op dit voorgerecht met garnalen.", "en": "I just love this starter with prawns." },
+            { "nl": "Ik ben gek op mijn moeders worteltaart.", "en": "I'm mad about my mum's carrot cake." },
+            { "nl": "Ik vind pindakaas vies.", "en": "I can't stand peanut butter." }
+          ]
+        },
+        {
+          "group": "B", "title": "Je praat over iemands uiterlijk",
+          "items": [
+            { "nl": "Ze heeft donker haar en een paardenstaart.", "en": "She's dark-haired and has a ponytail." },
+            { "nl": "Hij heeft een snor en een oorring.", "en": "He's got a moustache and an earring." },
+            { "nl": "Ik draag altijd kleurige kleding.", "en": "I always wear colourful clothes." },
+            { "nl": "Hij ziet eruit als een typisch Amerikaanse toerist.", "en": "He looks like a typical American tourist." }
+          ]
+        },
+        {
+          "group": "C", "title": "Je bestelt iets te eten en drinken",
+          "items": [
+            { "nl": "Ik heb best honger. Ik neem een van die steaks.", "en": "I feel quite hungry. I'll have one of those steaks." },
+            { "nl": "Ik wil ook een glas water.", "en": "I would like a glass of water too, please." },
+            { "nl": "Mag ik een avocadosalade?", "en": "May I have an avocado salad?" },
+            { "nl": "Kunnen we nog wat mayonaise krijgen?", "en": "Can we have some more mayo, please?" },
+            { "nl": "Mag ik nog een bolletje ijs?", "en": "Can I get another scoop of ice cream?" }
+          ]
+        },
+        {
+          "group": "D", "title": "Je zegt dankjewel",
+          "items": [
+            { "nl": "Toch bedankt.", "en": "Thanks all the same." },
+            { "nl": "Bedankt voor je hulp.", "en": "Thanks for your help." },
+            { "nl": "Graag gedaan.", "en": "My pleasure." },
+            { "nl": "Bedankt!", "en": "Cheers!" }
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "u1l4",
+      "number": 4,
+      "title": "Geography",
+      "subtitle": "Aardrijkskunde",
+      "words": [
+        {
+          "id": "to-cross", "en": "to cross", "nl": "oversteken", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🌉", "x": 265, "y": 105, "s": 110 } ] } },
+          "sentence": "{ivy} **crosses** the bridge slowly.",
+          "sentenceNl": "{ivy} steekt de brug langzaam over."
+        },
+        {
+          "id": "degrees", "en": "degrees", "nl": "graden", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "happy", "x": 105 } ], "props": [ { "t": "emoji", "c": "🌡️", "x": 245, "y": 100, "s": 95 }, { "t": "text", "c": "30°", "x": 318, "y": 110, "s": 40 } ] } },
+          "sentence": "{vera} trains even when it is 30 **degrees**.",
+          "sentenceNl": "{vera} traint ook als het 30 graden is."
+        },
+        {
+          "id": "to-discover", "en": "to discover", "nl": "ontdekken", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "surprised", "x": 110 } ], "props": [ { "t": "emoji", "c": "💎", "x": 255, "y": 105, "s": 80 }, { "t": "emoji", "c": "✨", "x": 310, "y": 60, "s": 44 } ] } },
+          "sentence": "{ivy} **discovers** a hidden treasure.",
+          "sentenceNl": "{ivy} ontdekt een verborgen schat."
+        },
+        {
+          "id": "earth", "en": "earth", "nl": "aarde (planeet)", "dir": "en-nl",
+          "picture": { "emoji": "🌍" },
+          "sentence": "{nova} dreams of seeing the **earth** from space.",
+          "sentenceNl": "{nova} droomt ervan de aarde vanuit de ruimte te zien."
+        },
+        {
+          "id": "to-erupt", "en": "to erupt", "nl": "uitbarsten", "dir": "en-nl",
+          "picture": { "emoji": "🌋💥", "size": 100 },
+          "sentence": "{dahlia} watches the volcano **erupt**.",
+          "sentenceNl": "{dahlia} kijkt hoe de vulkaan uitbarst."
+        },
+        {
+          "id": "giant", "en": "giant", "nl": "reusachtige", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "surprised", "x": 85, "scale": 0.8 } ], "props": [ { "t": "emoji", "c": "🐕", "x": 265, "y": 112, "s": 190 } ] } },
+          "sentence": "{dahlia} meets a **giant** dog.",
+          "sentenceNl": "{dahlia} ontmoet een reusachtige hond."
+        },
+        {
+          "id": "hole", "en": "hole", "nl": "gat", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "surprised", "x": 110 } ], "props": [ { "t": "emoji", "c": "🕳️", "x": 270, "y": 150, "s": 100 } ] } },
+          "sentence": "{vera} digs a **hole** in the sand.",
+          "sentenceNl": "{vera} graaft een gat in het zand."
+        },
+        {
+          "id": "mile", "en": "mile", "nl": "mijl (1,6 km)", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "happy", "x": 105 } ], "props": [ { "t": "text", "c": "1 mile", "x": 265, "y": 85, "s": 38 }, { "t": "text", "c": "= 1,6 km", "x": 265, "y": 130, "s": 30, "color": "#ffffff" } ] } },
+          "sentence": "{dahlia} runs one **mile** every morning.",
+          "sentenceNl": "{dahlia} rent elke ochtend één mijl."
+        },
+        {
+          "id": "outside", "en": "outside", "nl": "buiten", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🌳", "x": 265, "y": 115, "s": 100 }, { "t": "emoji", "c": "☀️", "x": 325, "y": 45, "s": 50 } ] } },
+          "sentence": "{ivy} likes to train **outside** in the sun.",
+          "sentenceNl": "{ivy} traint graag buiten in de zon."
+        },
+        {
+          "id": "remote", "en": "remote", "nl": "afgelegen", "dir": "en-nl",
+          "picture": { "emoji": "🏝️" },
+          "sentence": "{nova} goes to a **remote** island to rest.",
+          "sentenceNl": "{nova} gaat naar een afgelegen eiland om uit te rusten."
+        },
+        {
+          "id": "scary", "en": "scary", "nl": "eng", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "surprised", "x": 110 } ], "props": [ { "t": "emoji", "c": "👻", "x": 270, "y": 105, "s": 100 } ] } },
+          "sentence": "{dahlia} thinks the dark forest is **scary**.",
+          "sentenceNl": "{dahlia} vindt het donkere bos eng."
+        },
+        {
+          "id": "settler", "en": "settler", "nl": "kolonist", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "⛺", "x": 255, "y": 115, "s": 90 }, { "t": "emoji", "c": "🐎", "x": 318, "y": 155, "s": 56 } ] } },
+          "sentence": "{ivy} writes a story about a brave **settler**.",
+          "sentenceNl": "{ivy} schrijft een verhaal over een dappere kolonist."
+        },
+        {
+          "id": "steep", "en": "steep", "nl": "steil", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "happy", "x": 95 } ], "props": [ { "t": "polygon", "pts": "190,199 340,48 340,199", "fill": "#3b6b4f" }, { "t": "path", "d": "M200 190 L328 62", "stroke": "#d9c28a", "w": 5, "dash": "3 10" } ] } },
+          "sentence": "{vera} runs up a **steep** hill.",
+          "sentenceNl": "{vera} rent een steile heuvel op."
+        },
+        {
+          "id": "trail", "en": "trail", "nl": "pad", "dir": "en-nl",
+          "picture": { "emoji": "🥾🌲", "size": 100 },
+          "sentence": "{ivy} follows the **trail** through the woods.",
+          "sentenceNl": "{ivy} volgt het pad door het bos."
+        },
+        {
+          "id": "valley", "en": "valley", "nl": "vallei", "dir": "en-nl",
+          "picture": { "emoji": "🏞️" },
+          "sentence": "{nova} walks through the green **valley**.",
+          "sentenceNl": "{nova} loopt door de groene vallei."
+        },
+
+        {
+          "id": "area", "en": "area", "nl": "gebied", "dir": "nl-en",
+          "picture": { "emoji": "🗺️📍", "size": 100 },
+          "sentence": "{vera} trains in a green **area** near the river.",
+          "sentenceNl": "{vera} traint in een groen gebied bij de rivier."
+        },
+        {
+          "id": "border", "en": "border", "nl": "grens", "dir": "nl-en",
+          "picture": { "emoji": "🛂" },
+          "sentence": "{nova} shows her passport at the **border**.",
+          "sentenceNl": "{nova} laat haar paspoort zien bij de grens."
+        },
+        {
+          "id": "large", "en": "large", "nl": "groot", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "happy", "x": 100 } ], "props": [ { "t": "emoji", "c": "🥤", "x": 215, "y": 160, "s": 40 }, { "t": "emoji", "c": "🥤", "x": 292, "y": 112, "s": 150 } ] } },
+          "sentence": "{dahlia} orders a **large** milkshake.",
+          "sentenceNl": "{dahlia} bestelt een grote milkshake."
+        },
+        {
+          "id": "to-climb", "en": "to climb", "nl": "klimmen", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "pose": "victory", "face": "happy", "x": 100 } ], "props": [ { "t": "emoji", "c": "⛰️", "x": 270, "y": 108, "s": 140 } ] } },
+          "sentence": "{vera} loves to **climb** mountains.",
+          "sentenceNl": "{vera} klimt graag in de bergen."
+        },
+        {
+          "id": "country", "en": "country", "nl": "land", "dir": "nl-en",
+          "picture": { "emoji": "🇳🇱🇬🇧", "size": 100 },
+          "sentence": "{nova} travels to a new **country**.",
+          "sentenceNl": "{nova} reist naar een nieuw land."
+        },
+        {
+          "id": "air", "en": "air", "nl": "lucht", "dir": "nl-en",
+          "picture": { "emoji": "🎈💨", "size": 100 },
+          "sentence": "{ivy} fills a balloon with **air**.",
+          "sentenceNl": "{ivy} vult een ballon met lucht."
+        },
+        {
+          "id": "north", "en": "north", "nl": "noord(en)", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "pose": "present", "face": "happy", "x": 95 } ], "props": [ { "t": "compass", "x": 270, "y": 106, "r": 52, "dir": "N" } ] } },
+          "sentence": "{ivy} follows the compass to the **north**.",
+          "sentenceNl": "{ivy} volgt het kompas naar het noorden."
+        },
+        {
+          "id": "east", "en": "east", "nl": "oost(en)", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "pose": "present", "face": "happy", "x": 95 } ], "props": [ { "t": "compass", "x": 270, "y": 106, "r": 52, "dir": "E" } ] } },
+          "sentence": "{vera} runs to the **east** along the beach.",
+          "sentenceNl": "{vera} rent langs het strand naar het oosten."
+        },
+        {
+          "id": "path", "en": "path", "nl": "pad", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 95 } ], "props": [ { "t": "path", "d": "M215 198 C 250 172, 335 176, 292 142 S 250 104, 300 84", "stroke": "#b99d63", "w": 16 }, { "t": "path", "d": "M215 198 C 250 172, 335 176, 292 142 S 250 104, 300 84", "stroke": "#ecd9a6", "w": 3, "dash": "2 12" }, { "t": "emoji", "c": "🌲", "x": 335, "y": 120, "s": 54 } ] } },
+          "sentence": "{ivy} walks along the **path** to the lake.",
+          "sentenceNl": "{ivy} loopt over het pad naar het meer."
+        },
+        {
+          "id": "view", "en": "view", "nl": "uitzicht", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "nova", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🌄", "x": 270, "y": 108, "s": 120 } ] } },
+          "sentence": "{nova} enjoys the **view** from the top.",
+          "sentenceNl": "{nova} geniet van het uitzicht vanaf de top."
+        },
+        {
+          "id": "safe", "en": "safe", "nl": "veilig", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🛡️", "x": 270, "y": 105, "s": 100 } ] } },
+          "sentence": "{ivy} feels **safe** with her friends.",
+          "sentenceNl": "{ivy} voelt zich veilig bij haar vrienden."
+        },
+        {
+          "id": "far", "en": "far", "nl": "ver", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "pose": "wave", "face": "happy", "x": 80 }, { "who": "nova", "face": "happy", "x": 295, "scale": 0.4 } ], "props": [ { "t": "hline", "x1": 135, "x2": 262, "y": 175 } ] } },
+          "sentence": "{vera} waves at {nova}, who is **far** away.",
+          "sentenceNl": "{vera} zwaait naar {nova}, die ver weg is."
+        },
+        {
+          "id": "to-explore", "en": "to explore", "nl": "verkennen", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 110 } ], "props": [ { "t": "compass", "x": 270, "y": 106, "r": 52 } ] } },
+          "sentence": "{ivy} loves to **explore** new places.",
+          "sentenceNl": "{ivy} vindt het heerlijk om nieuwe plekken te verkennen."
+        },
+        {
+          "id": "volcano", "en": "volcano", "nl": "vulkaan", "dir": "nl-en",
+          "picture": { "emoji": "🌋" },
+          "sentence": "{dahlia} takes a photo of a **volcano**.",
+          "sentenceNl": "{dahlia} maakt een foto van een vulkaan."
+        },
+        {
+          "id": "west", "en": "west", "nl": "west(en)", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "nova", "pose": "present", "face": "happy", "x": 95 } ], "props": [ { "t": "compass", "x": 270, "y": 106, "r": 52, "dir": "W" } ] } },
+          "sentence": "{nova} watches the sun set in the **west**.",
+          "sentenceNl": "{nova} kijkt hoe de zon ondergaat in het westen."
+        },
+        {
+          "id": "desert", "en": "desert", "nl": "woestijn", "dir": "nl-en",
+          "picture": { "emoji": "🏜️" },
+          "sentence": "{nova} wears a hat in the **desert**.",
+          "sentenceNl": "{nova} draagt een hoed in de woestijn."
+        },
+        {
+          "id": "south", "en": "south", "nl": "zuid(en)", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "pose": "present", "face": "happy", "x": 95 } ], "props": [ { "t": "compass", "x": 270, "y": 106, "r": 52, "dir": "S" } ] } },
+          "sentence": "{dahlia} goes on holiday to the **south**.",
+          "sentenceNl": "{dahlia} gaat op vakantie naar het zuiden."
+        }
+      ]
+    },
+
+    {
+      "id": "u1l5",
+      "number": 5,
+      "title": "Relationships",
+      "subtitle": "Relaties",
+      "words": [
+        {
+          "id": "to-argue", "en": "to argue", "nl": "ruziemaken", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "surprised", "x": 100 }, { "who": "ivy", "face": "thinking", "x": 260 } ], "props": [ { "t": "emoji", "c": "💢", "x": 180, "y": 80, "s": 60 } ] } },
+          "sentence": "{vera} and {ivy} **argue** about a board game.",
+          "sentenceNl": "{vera} en {ivy} maken ruzie over een bordspel."
+        },
+        {
+          "id": "to-break-up-with", "en": "to break up with", "nl": "het uitmaken met", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "nova", "face": "thinking", "x": 110 } ], "props": [ { "t": "emoji", "c": "💔", "x": 270, "y": 100, "s": 100 } ] } },
+          "sentence": "In the film, {nova} decides to **break up with** her boyfriend.",
+          "sentenceNl": "In de film besluit {nova} het uit te maken met haar vriend."
+        },
+        {
+          "id": "to-care-about", "en": "to care about", "nl": "geven om", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "happy", "x": 105 }, { "who": "vera", "face": "happy", "x": 255 } ], "props": [ { "t": "emoji", "c": "❤️", "x": 180, "y": 65, "s": 56 } ] } },
+          "sentence": "{dahlia} **cares about** her friends.",
+          "sentenceNl": "{dahlia} geeft veel om haar vrienden."
+        },
+        {
+          "id": "each-other", "en": "each other", "nl": "elkaar", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "pose": "present", "face": "happy", "x": 95 }, { "who": "nova", "pose": "present", "face": "happy", "x": 265, "flip": true } ], "props": [ { "t": "text", "c": "↔", "x": 180, "y": 110, "s": 50 } ] } },
+          "sentence": "{ivy} and {nova} help **each other**.",
+          "sentenceNl": "{ivy} en {nova} helpen elkaar."
+        },
+        {
+          "id": "engaged", "en": "engaged", "nl": "verloofd", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "💍", "x": 270, "y": 105, "s": 100 } ] } },
+          "sentence": "{ivy}'s sister is **engaged**. She shows her ring.",
+          "sentenceNl": "De zus van {ivy} is verloofd. Ze laat haar ring zien."
+        },
+        {
+          "id": "husband", "en": "husband", "nl": "man (getrouwd)", "dir": "en-nl",
+          "picture": { "emoji": "🤵" },
+          "sentence": "{dahlia} bakes a cake for her friend's **husband**.",
+          "sentenceNl": "{dahlia} bakt een taart voor de man van haar vriendin."
+        },
+        {
+          "id": "personality", "en": "personality", "nl": "persoonlijkheid", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "happy" }, { "who": "vera", "face": "surprised" }, { "who": "ivy", "face": "thinking" }, { "who": "nova", "face": "proud" } ] } },
+          "sentence": "{dahlia}, {vera}, {ivy} and {nova} all have a different **personality**.",
+          "sentenceNl": "{dahlia}, {vera}, {ivy} en {nova} hebben allemaal een andere persoonlijkheid."
+        },
+        {
+          "id": "to-separate", "en": "to separate", "nl": "uit elkaar gaan", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "vera", "pose": "wave", "face": "happy", "x": 70 }, { "who": "nova", "face": "happy", "x": 290 } ], "props": [ { "t": "text", "c": "←", "x": 145, "y": 110, "s": 46 }, { "t": "text", "c": "→", "x": 215, "y": 110, "s": 46 } ] } },
+          "sentence": "{vera} and {nova} **separate** at the corner and go home.",
+          "sentenceNl": "{vera} en {nova} gaan bij de hoek uit elkaar en gaan naar huis."
+        },
+        {
+          "id": "to-share", "en": "to share", "nl": "delen", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "happy", "x": 105 }, { "who": "vera", "face": "happy", "x": 255 } ], "props": [ { "t": "emoji", "c": "🍿", "x": 180, "y": 115, "s": 70 } ] } },
+          "sentence": "{dahlia} likes to **share** her popcorn with {vera}.",
+          "sentenceNl": "{dahlia} deelt graag haar popcorn met {vera}."
+        },
+        {
+          "id": "sister-in-law", "en": "sister-in-law", "nl": "schoonzus", "dir": "en-nl",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 75, "scale": 0.9 } ], "props": [ { "t": "emoji", "c": "🤵", "x": 175, "y": 115, "s": 70 }, { "t": "emoji", "c": "💍", "x": 222, "y": 118, "s": 34 }, { "t": "emoji", "c": "👰", "x": 275, "y": 115, "s": 70 } ] } },
+          "sentence": "{ivy} has a lovely **sister-in-law**. They go shopping together.",
+          "sentenceNl": "{ivy} heeft een leuke schoonzus. Ze gaan samen winkelen."
+        },
+        {
+          "id": "wife", "en": "wife", "nl": "vrouw (getrouwd)", "dir": "en-nl",
+          "picture": { "emoji": "👰" },
+          "sentence": "{ivy}'s coach loves his **wife** very much.",
+          "sentenceNl": "De coach van {ivy} houdt heel veel van zijn vrouw."
+        },
+
+        {
+          "id": "active", "en": "active", "nl": "actief", "dir": "nl-en",
+          "picture": { "emoji": "🏃🚴", "size": 100 },
+          "sentence": "{vera} is very **active**. She never sits still.",
+          "sentenceNl": "{vera} is heel actief. Ze zit nooit stil."
+        },
+        {
+          "id": "thoughtful", "en": "thoughtful", "nl": "attent", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "pose": "present", "face": "happy", "x": 105, "holds": { "item": "flowers" } }, { "who": "nova", "face": "happy", "x": 265 } ] } },
+          "sentence": "{dahlia} is **thoughtful**. She gives {nova} flowers after the match.",
+          "sentenceNl": "{dahlia} is attent. Ze geeft {nova} bloemen na de match."
+        },
+        {
+          "id": "polite", "en": "polite", "nl": "beleefd", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "pose": "wave", "face": "happy", "x": 105 } ], "props": [ { "t": "bubble", "x": 262, "y": 62, "w": 150, "h": 46, "c": "Thank you", "s": 22, "tx": 150, "ty": 84 } ] } },
+          "sentence": "{ivy} is **polite**. She says thank you.",
+          "sentenceNl": "{ivy} is beleefd. Ze zegt dankjewel."
+        },
+        {
+          "id": "charming", "en": "charming", "nl": "charmant", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "pose": "wave", "face": "proud", "x": 115 } ], "props": [ { "t": "emoji", "c": "💫", "x": 270, "y": 95, "s": 90 } ] } },
+          "sentence": "{vera} has a **charming** smile.",
+          "sentenceNl": "{vera} heeft een charmante glimlach."
+        },
+        {
+          "id": "creative", "en": "creative", "nl": "creatief", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "nova", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🖌️", "x": 255, "y": 110, "s": 80 }, { "t": "emoji", "c": "💡", "x": 312, "y": 58, "s": 56 } ] } },
+          "sentence": "{nova} is **creative** and designs her own cape.",
+          "sentenceNl": "{nova} is creatief en ontwerpt haar eigen cape."
+        },
+        {
+          "id": "honest", "en": "honest", "nl": "eerlijk", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "proud", "x": 110 } ], "props": [ { "t": "emoji", "c": "💯", "x": 270, "y": 105, "s": 100 } ] } },
+          "sentence": "{ivy} is **honest**. She always tells the truth.",
+          "sentenceNl": "{ivy} is eerlijk. Ze vertelt altijd de waarheid."
+        },
+        {
+          "id": "tidy", "en": "tidy", "nl": "netjes", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🛏️", "x": 268, "y": 118, "s": 100 }, { "t": "emoji", "c": "✨", "x": 318, "y": 62, "s": 44 } ] } },
+          "sentence": "{ivy} keeps her room **tidy**.",
+          "sentenceNl": "{ivy} houdt haar kamer netjes."
+        },
+        {
+          "id": "cheerful", "en": "cheerful", "nl": "opgewekt", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🌈", "x": 270, "y": 95, "s": 120 } ] } },
+          "sentence": "{vera} is **cheerful**, even on rainy days.",
+          "sentenceNl": "{vera} is opgewekt, zelfs op regenachtige dagen."
+        },
+        {
+          "id": "relationship", "en": "relationship", "nl": "relatie", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 105 }, { "who": "nova", "face": "happy", "x": 255 } ], "props": [ { "t": "emoji", "c": "💞", "x": 180, "y": 70, "s": 60 } ] } },
+          "sentence": "{ivy} and {nova} have a good **relationship**.",
+          "sentenceNl": "{ivy} en {nova} hebben een goede relatie."
+        },
+        {
+          "id": "romantic", "en": "romantic", "nl": "romantisch", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "nova", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🌇", "x": 268, "y": 98, "s": 110 }, { "t": "emoji", "c": "🌹", "x": 322, "y": 165, "s": 44 } ] } },
+          "sentence": "{nova} thinks a walk at sunset is **romantic**.",
+          "sentenceNl": "{nova} vindt een wandeling bij zonsondergang romantisch."
+        },
+        {
+          "id": "serious", "en": "serious", "nl": "serieus", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "neutral", "x": 115 } ], "props": [ { "t": "emoji", "c": "🎯", "x": 270, "y": 105, "s": 100 } ] } },
+          "sentence": "{ivy} looks **serious** before the match.",
+          "sentenceNl": "{ivy} ziet er serieus uit voor de match."
+        },
+        {
+          "id": "couple", "en": "couple", "nl": "stel", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "happy", "x": 100 } ], "props": [ { "t": "emoji", "c": "👫", "x": 265, "y": 110, "s": 110 } ] } },
+          "sentence": "{vera} watches a happy old **couple** in the park.",
+          "sentenceNl": "{vera} kijkt naar een gelukkig oud stel in het park."
+        },
+        {
+          "id": "loyal", "en": "loyal", "nl": "trouw", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "happy", "x": 105 }, { "who": "dahlia", "face": "happy", "x": 255 } ], "props": [ { "t": "emoji", "c": "🤝", "x": 180, "y": 118, "s": 64 } ] } },
+          "sentence": "{vera} is a **loyal** friend. She always helps {dahlia}.",
+          "sentenceNl": "{vera} is een trouwe vriendin. Ze helpt {dahlia} altijd."
+        },
+        {
+          "id": "to-be-in-love-with", "en": "to be in love with", "nl": "verliefd zijn op", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "vera", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "😍", "x": 265, "y": 85, "s": 90 }, { "t": "emoji", "c": "💕", "x": 322, "y": 152, "s": 50 } ] } },
+          "sentence": "In her favourite film, {vera} **is in love with** a pilot.",
+          "sentenceNl": "In haar favoriete film is {vera} verliefd op een piloot."
+        },
+        {
+          "id": "single", "en": "single", "nl": "vrijgezel", "dir": "nl-en",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 110 } ], "props": [ { "t": "text", "c": "1", "x": 270, "y": 105, "s": 120 } ] } },
+          "sentence": "{ivy} is **single** and has lots of time for training.",
+          "sentenceNl": "{ivy} is vrijgezel en heeft veel tijd om te trainen."
+        }
+      ]
+    }
+  ]
+}

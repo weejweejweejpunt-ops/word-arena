@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galerij – worstelaarsters</title>
+<style>
+  body { margin: 0; padding: 16px; background: #12122a; color: #f1f0ff; font: 16px/1.4 system-ui, sans-serif; }
+  h1 { font-size: 22px; } h2 { font-size: 16px; margin: 28px 0 8px; color: #f5c542; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cell { background: #1c1d3a; border-radius: 12px; padding: 6px; text-align: center; font-size: 12px; color: #aeb3ec; }
+  .cell svg { display: block; }
+  .full svg { width: 120px; height: 190px; }
+  .bust svg { width: 130px; height: 130px; }
+  .scene svg { width: 240px; height: auto; }
+</style>
+</head>
+<body>
+<h1>Galerij: de vier worstelaarsters</h1>
+<p>Deze pagina is alleen om de tekeningen te bekijken. Ze gebruikt dezelfde tekenmodule als de app.</p>
+<div id="out"></div>
+<script type="module">
+import { setCharacters, portraitSVG, sceneSVG, progressBeltSVG, pictureSVG } from './js/figure.js';
+const data = await (await fetch('data/characters.json')).json();
+setCharacters(data.characters);
+const ids = Object.keys(data.characters);
+const out = document.getElementById('out');
+const sec = (title, html) => out.insertAdjacentHTML('beforeend', `<h2>${title}</h2><div class="row">${html}</div>`);
+const cell = (cls, svg, cap) => `<div class="cell ${cls}">${svg}${cap}</div>`;
+
+const poses = ['stand','hips','flex','victory','jump','wave','think','present'];
+for (const id of ids) sec(`${data.characters[id].name} – houdingen`, poses.map(p => cell('full', portraitSVG(id, { pose: p, face: 'happy' }), p)).join(''));
+const faces = ['neutral','happy','proud','thinking','surprised','bored'];
+sec('Gezichtsuitdrukkingen', ids.map(id => faces.map(f => cell('bust', portraitSVG(id, { view: 'bust', face: f }), `${id} · ${f}`)).join('')).join(''));
+const mods = ['freckles','birthmark','scar','spot','braces','tanned','plain','noGlasses'];
+sec('Kenmerken (op Vera en anderen)', mods.map((m, i) => cell('bust', portraitSVG(ids[i % 4], { view: 'bust', face: 'happy', mods: [m] }), `${ids[i % 4]} · ${m}`)).join(''));
+sec('Voorwerpen', [
+  cell('full', portraitSVG('ivy', { pose: 'hold', face: 'proud', holds: { item: 'belt' } }), 'riem'),
+  cell('full', portraitSVG('dahlia', { face: 'proud', holds: { item: 'barbell' } }), 'gewicht'),
+  cell('full', portraitSVG('dahlia', { pose: 'present', face: 'happy', holds: { item: 'flowers' } }), 'bloemen'),
+  cell('full', portraitSVG('nova', { face: 'proud', wearsBelt: true }), 'riem om'),
+].join(''));
+sec('Scène + riem', cell('scene', sceneSVG({ cast: ids.map(who => ({ who, face: 'proud' })) }), 'line-up') +
+  cell('scene', progressBeltSVG(0.4), '40%') + cell('scene', progressBeltSVG(1), '100%'));
+
+// plaatjes bij alle woorden
+const units = await (await fetch('data/units.json')).json();
+for (const f of units) {
+  const u = await (await fetch('data/' + f)).json();
+  for (const l of u.lessons) {
+    sec(`Les ${l.number} – ${l.title}: plaatjes bij de woorden`, l.words.map(w => cell('scene', pictureSVG(w), `${w.en} – ${w.nl}`)).join(''));
+  }
+}
+</script>
+</body>
+</html>
