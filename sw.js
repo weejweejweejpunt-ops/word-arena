@@ -1,8 +1,10 @@
 /* Service worker: zorgt dat de app ook zonder internet werkt.
  * Strategie: eerst het netwerk proberen (zo komen updates vanzelf binnen), en als dat niet lukt de opgeslagen kopie gebruiken.
+ * GitHub Pages laat bestanden 10 minuten in de browsercache staan. Daarom vragen we altijd opnieuw na ("no-cache"),
+ * zodat een update meteen binnenkomt en oude en nieuwe bestanden niet door elkaar raken.
  * Verander VERSION als je nieuwe bestanden hebt gezet, dan wordt de oude opslag opgeruimd.
  */
-const VERSION = 'word-arena-v4';
+const VERSION = 'word-arena-v5';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/app.js', 'js/figure.js', 'js/store.js', 'js/speech.js', 'js/typing.js',
@@ -13,13 +15,25 @@ const CORE = [
   'images/pas-dahlia.webp', 'images/pas-vera.webp', 'images/pas-ivy.webp', 'images/pas-nova.webp'
 ];
 
+/** Een verzoek dat altijd bij de server nakijkt of er een nieuwere versie is. */
+const freshReq = (url, mode) => new Request(url, { cache: mode, credentials: 'same-origin' });
+
+/** Zet bestanden in de opslag, en haalt ze daarvoor vers op (niet uit de browsercache). */
+async function addFresh(cache, urls) {
+  await Promise.all(urls.map(async u => {
+    const res = await fetch(freshReq(u, 'reload'));
+    if (!res.ok) throw new Error(u + ': ' + res.status);
+    await cache.put(u, res);
+  }));
+}
+
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
     const cache = await caches.open(VERSION);
-    await cache.addAll(CORE);
+    await addFresh(cache, CORE);
     try {                                   // ook alle unit-bestanden uit data/units.json
-      const files = await (await fetch('data/units.json', { cache: 'no-store' })).json();
-      await cache.addAll(files.map(f => 'data/' + f));
+      const files = await (await fetch(freshReq('data/units.json', 'reload'))).json();
+      await addFresh(cache, files.map(f => 'data/' + f));
     } catch (e) { /* later opnieuw */ }
     self.skipWaiting();
   })());
@@ -40,7 +54,7 @@ self.addEventListener('fetch', event => {
     try {
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 4000);
-      const res = await fetch(req, { signal: ctrl.signal });
+      const res = await fetch(freshReq(req.url, 'no-cache'), { signal: ctrl.signal });
       clearTimeout(timer);
       if (res.ok) cache.put(req, res.clone());
       return res;
