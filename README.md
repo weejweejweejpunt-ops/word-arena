@@ -17,13 +17,18 @@ Alles is zelf bedacht en getekend. Er zijn geen echte worstelaarsters, namen of 
   - Een **kleine typfout** (een letter te veel, te weinig, verkeerd of omgewisseld) is "bijna": je ziet wat er anders is en mag het nog één keer proberen. Lukt dat, dan telt het als goed, maar het woord schuift niet op in het herhaalschema.
   - Een vergeten hoofdletter bij `American` of `Italian` is ook "bijna". Bij woorden van 3 letters of korter is elke fout gewoon fout.
   - Fout, of "Ik weet het niet"? Dan zie je het goede antwoord en komt het woord straks terug.
+- **Zinnenmatch**: de zinnen uit "Expressions" van het boek (nu Les 3, 19 zinnen). Je ziet de Nederlandse zin en zet de stukjes van de Engelse zin in de goede volgorde door ze aan te tikken. Tik je een stukje op een plek aan, dan gaat het terug naar de bak.
+  - Een **nieuwe zin** zie je eerst helemaal (met voorlezen), daarna moet je hem zelf maken.
+  - Niet goed? Dan blijven de **groene stukjes** (die op de goede plek staan) liggen en zet je de rest nog een keer neer. Lukt dat, dan telt het als goed, maar de zin schuift niet op in het herhaalschema.
+  - Nog steeds niet goed, of "Ik weet het niet"? Dan zie je de goede zin, en komt hij straks terug.
+  - De kaart verschijnt alleen bij lessen met zinnen. Zinnen tellen niet mee voor de riem.
 - **Richting** (voor de oefenmatch): zoals in het boek, Engels → Nederlands, Nederlands → Engels, of door elkaar.
 - **Slim herhalen** (Leitner): fout = het woord komt snel terug, goed = het komt later terug (na 1, 3 en 7 dagen).
 - **Riem** per les die zich vult. De riem gaat nooit omlaag.
 - Korte matches (standaard 10 woorden, instelbaar op 5/10/15), altijd stoppen kan, voortgang blijft bewaard op de telefoon.
 - Rustig: geen timers, geen levens, geen flitsende dingen, geluid staat uit en `prefers-reduced-motion` wordt gerespecteerd.
 
-Nog niet gebouwd: de Uitdrukkingen-oefening, grammatica, eigen personage ontwerpen.
+Nog niet gebouwd: grammatica, eigen personage ontwerpen.
 
 ## Uitproberen op de laptop
 
@@ -78,6 +83,16 @@ Zo ziet een woord eruit:
 - `dir` is de richting zoals in het boek: `"en-nl"` (herkennen) of `"nl-en"` (zelf geven).
 - In zinnen staat `{dahlia}`, `{vera}`, `{ivy}` of `{nova}` voor de naam van die worstelaarster (zo klopt alles ook als je een naam verandert). `**dik**` maakt het woord geel en vet.
 - `picture` is of een emoji, bijvoorbeeld `{ "emoji": "🧔" }` voor concrete woorden, of een scène met de worstelaarsters voor abstracte woorden.
+
+### Zinnen (Expressions) toevoegen
+
+Zinnen horen bij een les, onder `"expressions"`, in groepen zoals in het boek (A, B, C, D). Per groep een `title` en een `picture` (een scène, zoals bij de woorden). Per zin:
+
+```json
+{ "nl": "Wat is je lievelingsgerecht?", "en": "What's your favourite dish?", "parts": ["What's", "your favourite", "dish?"] }
+```
+
+`parts` zijn de stukjes waaruit de zin bestaat, in de goede volgorde. Ze moeten samen met een spatie ertussen precies de `en`-zin vormen. Kies zinsdelen die bij elkaar horen en maak er 2 tot 5. Een zin van één woord (zoals "Cheers!") of zonder `parts` doet niet mee aan de Zinnenmatch.
 
 ### Scènes
 

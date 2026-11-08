@@ -1,7 +1,7 @@
 /* app.js – de schermen van Word Arena.
  * Vaste indeling: kop bovenin, inhoud in het midden, grote knop(pen) onderin. Alles staat altijd op dezelfde plek.
  */
-import { setCharacters, portraitSVG, sceneSVG, pictureSVG, progressBeltSVG } from './figure.js';
+import { setCharacters, portraitSVG, sceneSVG, pictureSVG, iconSVG, progressBeltSVG } from './figure.js';
 import * as store from './store.js';
 import { speak, stopSpeaking, speechSupported } from './speech.js';
 import { judge, diffMarks, letterHint } from './typing.js';
@@ -125,7 +125,7 @@ const knownText = words => `${store.knownCount(words)} van ${words.length} woord
 function route() {
   const [name, arg] = location.hash.replace(/^#\/?/, '').split('/');
   stopSpeaking();
-  if (!['learn', 'quiz', 'type', 'result'].includes(name)) round = null;
+  if (!['learn', 'quiz', 'type', 'zin', 'result'].includes(name)) round = null;
   if (name !== 'settings') { lastMain = location.hash || '#/'; askReset = false; }
   switch (name) {
     case 'lessons': return lessonsScreen();
@@ -133,6 +133,7 @@ function route() {
     case 'learn': return roundScreen('learn', arg);
     case 'quiz': return roundScreen('quiz', arg);
     case 'type': return roundScreen('type', arg);
+    case 'zin': return roundScreen('zin', arg);
     case 'result': return resultScreen();
     case 'settings': return settingsScreen();
     case 'wrestlers': return wrestlersScreen();
@@ -157,6 +158,7 @@ function openingScreen() {
         <li><strong>Leren.</strong> Je bekijkt een woord met een plaatje. Tik op het luidsprekertje om het te horen.</li>
         <li><strong>Oefenmatch.</strong> Je oefent in een match. Bij elk woord kies je het goede antwoord uit 4 mogelijkheden.</li>
         <li><strong>Typmatch.</strong> Je ziet een Nederlands woord. Jij typt het Engelse woord. Een kleine typfout is niet erg: dan zit je er ‘bijna’ op en zie je wat er anders is.</li>
+        <li><strong>Zinnenmatch.</strong> Je krijgt een Nederlandse zin. Jij zet de stukjes van de Engelse zin in de goede volgorde. Die zinnen kun je in het echt gebruiken.</li>
         <li><strong>Klaar na ${s.roundSize} woorden.</strong> Dan zie je hoeveel je goed had en hoe vol je riem is.</li>
       </ol>
 
@@ -210,6 +212,7 @@ function lessonScreen(scope) {
       <a class="mode" href="#/learn/${scope}">${face('ivy')}<div><strong>Leren</strong><span>Bekijk de woorden met een plaatje en luister naar het woord.</span></div></a>
       <a class="mode" href="#/quiz/${scope}">${face('vera')}<div><strong>Oefenmatch</strong><span>Een match van ${s.roundSize} woorden. Kies steeds het goede antwoord uit 4. Fout? Dan zie je het juiste antwoord.</span></div></a>
       <a class="mode" href="#/type/${scope}">${face('dahlia')}<div><strong>Typmatch</strong><span>Je ziet het Nederlandse woord. Typ het Engelse woord zelf. Bijna goed? Dan zie je wat er anders is.</span></div></a>
+      ${expressionsFor(scope).length ? `<a class="mode" href="#/zin/${scope}">${face('nova')}<div><strong>Zinnenmatch</strong><span>Zet de stukjes van een Engelse zin in de goede volgorde. Bijna goed? Dan zie je wat al klopt.</span></div></a>` : ''}
       <h2 class="section-title">Richting van de oefenmatch</h2>
       <div class="chips" role="group" aria-label="Richting">
         ${DIRS.map(([v, t]) => `<button type="button" class="chip" data-act="dir" data-v="${v}" aria-pressed="${s.direction === v}">${t}</button>`).join('')}
@@ -241,17 +244,40 @@ function makeQuestion(w, dir, pool) {
   return { word: w, dir, answer, options: shuffle([answer, ...wrong]) };
 }
 
+/* ---------- de zinnen (Uitdrukkingen) uit het boek ---------- */
+/** Alle zinnen van een les (of van alle lessen) die je in stukjes kunt zetten. */
+function expressionsFor(scope) {
+  const lessons = scope === 'all' ? LESSONS : LESSONS.filter(l => l.id === scope);
+  const out = [];
+  for (const l of lessons) for (const g of (l.expressions || [])) g.items.forEach((it, k) => {
+    if (!it.parts || it.parts.length < 2 || it.parts.join(' ') !== it.en) return;      // één woord of geen stukjes: overslaan
+    out.push({ key: `${l.id}/x/${g.group}${k + 1}`, nl: it.nl, en: it.en, parts: it.parts, group: g, lessonId: l.id });
+  });
+  return out;
+}
+/** De stukjes door elkaar, maar nooit meteen in de goede volgorde. */
+function makeTiles(parts) {
+  const tiles = parts.map((text, id) => ({ id, text }));
+  let s = shuffle(tiles);
+  if (s.every((t, i) => t.id === i)) s = s.slice().reverse();
+  return s;
+}
+
 function startRound(mode, scope) {
   const info = scopeInfo(scope);
   const n = Math.min(store.settings().roundSize, info.words.length);
   // Typen doe je met woorden die ze al gezien heeft (bij Leren of in een oefenmatch).
   const seen = info.words.filter(w => store.rec(w.key).seen);
+  const sentences = mode === 'zin' ? expressionsFor(scope) : [];
   const picked = mode === 'learn' ? store.pickLearn(info.words, n)
     : mode === 'type' ? store.pickQuiz(seen, Math.min(n, seen.length))
+    : mode === 'zin' ? store.pickQuiz(sentences, Math.min(store.settings().roundSize, sentences.length))
     : store.pickQuiz(info.words, n);
   round = {
     mode, scope, info, i: 0, results: [], done: false,
-    items: picked.map(w => mode === 'quiz' ? makeQuestion(w, dirFor(w), info.words) : { word: w, dir: mode === 'type' ? 'nl-en' : dirFor(w) }),
+    items: picked.map(w => mode === 'quiz' ? makeQuestion(w, dirFor(w), info.words)
+      : mode === 'zin' ? { word: w, dir: 'nl-en', tiles: makeTiles(w.parts) }
+      : { word: w, dir: mode === 'type' ? 'nl-en' : dirFor(w) }),
     flipped: false, answered: null, showNl: false,
     beltBefore: store.beltProgress(info.words)
   };
@@ -263,11 +289,11 @@ function roundScreen(mode, scope) {
   if (!round.items.length) return mode === 'type' ? typeEmpty(scope) : go('#/lesson/' + scope);
   renderRound();
 }
-const renderRound = () => round.mode === 'learn' ? learnCard() : round.mode === 'type' ? typeQuestion() : quizQuestion();
+const renderRound = () => round.mode === 'learn' ? learnCard() : round.mode === 'type' ? typeQuestion() : round.mode === 'zin' ? zinQuestion() : quizQuestion();
 
 const progressBlock = () => `
   <div class="prog">
-    <p class="prog-text" aria-live="polite">Woord ${round.i + 1} van ${round.items.length}</p>
+    <p class="prog-text" aria-live="polite">${round.mode === 'zin' ? 'Zin' : 'Woord'} ${round.i + 1} van ${round.items.length}</p>
     <div class="segs" aria-hidden="true">${round.items.map((_, k) => `<span class="seg ${k < round.i ? 'done' : k === round.i ? 'now' : ''}"></span>`).join('')}</div>
   </div>`;
 
@@ -435,6 +461,107 @@ function finishType(ok, opts = {}) {
   maybeAutoSpeak(w.en);
 }
 
+/* ---------- Zinnenmatch (stukjes in de goede volgorde) ---------- */
+const groupPicture = g => (g.picture ? sceneSVG(g.picture.scene) : iconSVG('💬'));
+
+function zinQuestion() {
+  const it = round.items[round.i], x = it.word;
+  round.placed = it.tiles.map(() => null);       // per plek: het stukje dat er ligt (of niets)
+  round.marks = [];                               // na een eerste poging: true = staat goed
+  round.near = false; round.final = false;
+  round.phase = store.rec(x.key).seen ? 'build' : 'intro';   // een nieuwe zin zie je eerst helemaal
+  zinScreen();
+}
+
+function zinScreen() {
+  const it = round.items[round.i], x = it.word, last = round.i === round.items.length - 1;
+  if (round.phase === 'intro') {
+    screen({
+      title: 'Zinnenmatch', back: stopLink(), gear: false,
+      body: `${progressBlock()}<div class="pic">${groupPicture(x.group)}</div>
+        <div class="word-block">
+          <p class="small-label">Nieuwe zin. Bekijk hem goed.</p>
+          <p class="zin-en" lang="en">${esc(x.en)}${speakBtn(x.en)}</p>
+          <p class="zin-nl">${esc(x.nl)}</p>
+          <p class="hint">${esc(x.group.title)}</p>
+        </div>`,
+      foot: `<div class="foot-row one"><button type="button" class="btn primary" data-act="zin-go">Nu jij</button></div>`
+    });
+    maybeAutoSpeak(x.en);
+    return;
+  }
+  screen({
+    title: 'Zinnenmatch', back: stopLink(), gear: false,
+    body: `${progressBlock()}<div class="pic zin-pic">${groupPicture(x.group)}</div>
+      <div class="word-block">
+        <p class="small-label">${esc(x.group.title)}</p>
+        <p class="zin-nl">${esc(x.nl)}</p>
+        <p class="small-label">Zet de stukjes in de goede volgorde.</p>
+      </div>
+      <div id="feedback" class="zin-fb" aria-live="polite"></div>
+      <div id="zin-area"></div>`,
+    foot: `<div class="foot-row eq"><button type="button" class="btn" id="idkBtn" data-act="idk">Ik weet het niet</button><button type="button" class="btn primary" id="checkBtn" data-act="check" disabled>Controleer</button></div>`
+  });
+  zinDraw();
+}
+
+/** Tekent de lege plekken (boven) en de stukjes die nog over zijn (onder). */
+function zinDraw() {
+  const it = round.items[round.i];
+  const used = new Set(round.placed.filter(v => v !== null));
+  const slots = round.placed.map((id, i) => {
+    if (id === null) return `<span class="slot" aria-label="Lege plek ${i + 1}"></span>`;
+    const t = it.tiles.find(t => t.id === id);
+    const cls = round.marks[i] === true ? 'good' : round.final && round.marks[i] === false ? 'bad' : '';
+    return `<button type="button" class="tile placed ${cls}" lang="en" data-act="untile" data-i="${i}" ${round.final ? 'disabled' : ''}>${esc(t.text)}</button>`;
+  }).join('');
+  const bank = it.tiles.filter(t => !used.has(t.id))
+    .map(t => `<button type="button" class="tile" lang="en" data-act="tile" data-id="${t.id}" ${round.final ? 'disabled' : ''}>${esc(t.text)}</button>`).join('');
+  document.getElementById('zin-area').innerHTML =
+    `<div class="slots" role="group" aria-label="Jouw zin">${slots}</div><div class="tiles" role="group" aria-label="Stukjes">${bank}</div>`;
+  const cb = document.getElementById('checkBtn');
+  if (cb && !round.final) cb.disabled = round.placed.some(v => v === null);
+}
+
+function zinCheck() {
+  if (round.final) return next();
+  if (round.placed.some(v => v === null)) return;
+  const it = round.items[round.i], x = it.word;
+  const text = round.placed.map(id => it.tiles.find(t => t.id === id).text);
+  const goodPos = text.map((t, i) => t === x.parts[i]);
+  if (goodPos.every(Boolean)) return finishZin(true, { assisted: round.near });
+  if (!round.near) {                                  // de eerste keer niet goed: de goede stukjes blijven staan, de rest mag ze nog een keer proberen
+    round.near = true;
+    const nGood = goodPos.filter(Boolean).length;
+    round.marks = goodPos.map(g => (g ? true : undefined));
+    goodPos.forEach((g, i) => { if (!g) round.placed[i] = null; });
+    document.getElementById('feedback').innerHTML = `<div class="fb near"><strong>Bijna!</strong> ` +
+      (nGood ? 'De groene stukjes staan goed. Zet de rest nog een keer neer.' : 'Kijk nog eens naar de volgorde. Probeer het nog een keer.') + `</div>`;
+    zinDraw();
+    return;
+  }
+  finishZin(false);
+}
+
+function finishZin(ok, opts = {}) {
+  const it = round.items[round.i], x = it.word, last = round.i === round.items.length - 1;
+  round.final = true;
+  round.results.push({ word: x, ok });
+  store.recordAnswer(x.key, ok, opts);
+  round.placed = it.tiles.map((_, i) => i).map(i => i);       // de goede volgorde laten zien
+  round.marks = round.placed.map(() => true);
+  zinDraw();
+  const head = ok ? (opts.assisted ? 'Goed! Nu klopt het.' : 'Goed!') : 'Zo moet de zin zijn:';
+  document.getElementById('feedback').innerHTML =
+    `<div class="fb ${ok ? 'ok' : 'miss'}">${head}<span class="pair" lang="en">${esc(x.en)} ${speakBtn(x.en)}</span><span class="nl">${esc(x.nl)}</span></div>`;
+  const check = document.getElementById('checkBtn');
+  check.disabled = false;
+  check.dataset.act = 'next';
+  check.textContent = last ? 'Klaar' : 'Volgende ›';
+  document.getElementById('idkBtn').disabled = true;
+  maybeAutoSpeak(x.en);
+}
+
 function next() {
   const last = round.i === round.items.length - 1;
   if (round.mode === 'learn') {
@@ -474,7 +601,7 @@ function resultScreen() {
       sub = `${good} van ${total} goed.`;
     }
     if (champion) sub = `Kampioen! Je hebt de riem van ${esc(info.title)} gewonnen.`;
-    extra = `${beltBlock(words)}<p class="meta">Je riem is ${pct(after)}% gevuld.</p>`;
+    extra = mode === 'zin' ? '' : `${beltBlock(words)}<p class="meta">Je riem is ${pct(after)}% gevuld.</p>`;   // zinnen tellen niet mee voor de riem
     if (miss.length) {
       extra += `<h3 class="section-title" style="text-align:left">Deze woorden komen straks terug:</h3><ul class="review">` +
         miss.map(r => `<li><span><span class="w" lang="en">${esc(r.word.en)}</span><br><span class="t">${esc(r.word.nl)}</span></span>${speakBtn(r.word.en)}</li>`).join('') + `</ul>`;
@@ -562,8 +689,19 @@ $app.addEventListener('click', e => {
       if (round.i > 0) { round.i--; round.flipped = false; learnCard(); }
       break;
     case 'next': next(); break;
-    case 'check': typeCheck(); break;
-    case 'idk': if (!round.final) finishType(false); break;
+    case 'check': round.mode === 'zin' ? zinCheck() : typeCheck(); break;
+    case 'idk': if (!round.final) (round.mode === 'zin' ? finishZin(false) : finishType(false)); break;
+    case 'zin-go': store.markSeen(round.items[round.i].word.key); round.phase = 'build'; zinScreen(); break;
+    case 'tile': {
+      const f = round.placed.indexOf(null);
+      if (f >= 0 && !round.final) { round.placed[f] = Number(el.dataset.id); round.marks[f] = undefined; zinDraw(); }
+      break;
+    }
+    case 'untile': {
+      const i = Number(el.dataset.i);
+      if (!round.final) { round.placed[i] = null; round.marks[i] = undefined; zinDraw(); }
+      break;
+    }
     case 'opt': answer(Number(el.dataset.i)); break;
     case 'toggle-nl': {
       round.showNl = true;
@@ -578,7 +716,7 @@ $app.addEventListener('click', e => {
     case 'reset-ask': askReset = true; settingsScreen(); break;
     case 'reset-no': askReset = false; settingsScreen(); break;
     case 'reset-yes': store.resetProgress(); askReset = false; settingsScreen(); break;
-    case 'again': { const sc = round.scope, m = round.mode === 'type' ? 'type' : 'quiz'; round = null; go(`#/${m}/${sc}`); break; }
+    case 'again': { const sc = round.scope, m = ['type', 'zin'].includes(round.mode) ? round.mode : 'quiz'; round = null; go(`#/${m}/${sc}`); break; }
   }
 });
 // Enter op het toetsenbord = Controleer (of Volgende als het antwoord al nagekeken is)

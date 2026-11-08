@@ -4,7 +4,7 @@
  * zodat een update meteen binnenkomt en oude en nieuwe bestanden niet door elkaar raken.
  * Verander VERSION als je nieuwe bestanden hebt gezet, dan wordt de oude opslag opgeruimd.
  */
-const VERSION = 'word-arena-v5';
+const VERSION = 'word-arena-v6';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest', 'css/style.css',
   'js/app.js', 'js/figure.js', 'js/store.js', 'js/speech.js', 'js/typing.js',

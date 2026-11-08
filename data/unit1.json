@@ -424,41 +424,45 @@
       "expressions": [
         {
           "group": "A", "title": "Je praat over wat iemand (niet) lekker vindt",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "face": "happy", "x": 105 }, { "who": "vera", "face": "happy", "x": 255 } ], "props": [ { "t": "bubble", "x": 180, "y": 50, "w": 92, "h": 44, "c": "😋", "s": 28, "tx": 150, "ty": 84 } ] } },
           "items": [
-            { "nl": "Wat is je lievelingsgerecht?", "en": "What's your favourite dish?" },
-            { "nl": "Wat denk je van een loempia?", "en": "How about a spring roll?" },
-            { "nl": "Zou je oesters willen proberen?", "en": "Would you try eating oysters?" },
-            { "nl": "Ik heb liever mineraalwater dan ijsthee.", "en": "I prefer mineral water to ice tea." },
-            { "nl": "Ik ben dol op dit voorgerecht met garnalen.", "en": "I just love this starter with prawns." },
-            { "nl": "Ik ben gek op mijn moeders worteltaart.", "en": "I'm mad about my mum's carrot cake." },
-            { "nl": "Ik vind pindakaas vies.", "en": "I can't stand peanut butter." }
+            { "nl": "Wat is je lievelingsgerecht?", "en": "What's your favourite dish?", "parts": ["What's", "your favourite", "dish?"] },
+            { "nl": "Wat denk je van een loempia?", "en": "How about a spring roll?", "parts": ["How about", "a spring roll?"] },
+            { "nl": "Zou je oesters willen proberen?", "en": "Would you try eating oysters?", "parts": ["Would you", "try eating", "oysters?"] },
+            { "nl": "Ik heb liever mineraalwater dan ijsthee.", "en": "I prefer mineral water to ice tea.", "parts": ["I prefer", "mineral water", "to", "ice tea."] },
+            { "nl": "Ik ben dol op dit voorgerecht met garnalen.", "en": "I just love this starter with prawns.", "parts": ["I just love", "this starter", "with prawns."] },
+            { "nl": "Ik ben gek op mijn moeders worteltaart.", "en": "I'm mad about my mum's carrot cake.", "parts": ["I'm mad about", "my mum's", "carrot cake."] },
+            { "nl": "Ik vind pindakaas vies.", "en": "I can't stand peanut butter.", "parts": ["I can't stand", "peanut butter."] }
           ]
         },
         {
           "group": "B", "title": "Je praat over iemands uiterlijk",
+          "picture": { "scene": { "cast": [ { "who": "ivy", "face": "happy", "x": 105 }, { "who": "nova", "face": "proud", "x": 255 } ], "props": [ { "t": "bubble", "x": 180, "y": 50, "w": 92, "h": 44, "c": "👀", "s": 28, "tx": 150, "ty": 84 } ] } },
           "items": [
-            { "nl": "Ze heeft donker haar en een paardenstaart.", "en": "She's dark-haired and has a ponytail." },
-            { "nl": "Hij heeft een snor en een oorring.", "en": "He's got a moustache and an earring." },
-            { "nl": "Ik draag altijd kleurige kleding.", "en": "I always wear colourful clothes." },
-            { "nl": "Hij ziet eruit als een typisch Amerikaanse toerist.", "en": "He looks like a typical American tourist." }
+            { "nl": "Ze heeft donker haar en een paardenstaart.", "en": "She's dark-haired and has a ponytail.", "parts": ["She's dark-haired", "and has", "a ponytail."] },
+            { "nl": "Hij heeft een snor en een oorring.", "en": "He's got a moustache and an earring.", "parts": ["He's got", "a moustache", "and an earring."] },
+            { "nl": "Ik draag altijd kleurige kleding.", "en": "I always wear colourful clothes.", "parts": ["I always wear", "colourful clothes."] },
+            { "nl": "Hij ziet eruit als een typisch Amerikaanse toerist.", "en": "He looks like a typical American tourist.", "parts": ["He looks like", "a typical", "American tourist."] }
           ]
         },
         {
           "group": "C", "title": "Je bestelt iets te eten en drinken",
+          "picture": { "scene": { "cast": [ { "who": "dahlia", "pose": "present", "face": "happy", "x": 110 } ], "props": [ { "t": "emoji", "c": "🍽️", "x": 262, "y": 100, "s": 88 }, { "t": "emoji", "c": "🥤", "x": 322, "y": 152, "s": 50 } ] } },
           "items": [
-            { "nl": "Ik heb best honger. Ik neem een van die steaks.", "en": "I feel quite hungry. I'll have one of those steaks." },
-            { "nl": "Ik wil ook een glas water.", "en": "I would like a glass of water too, please." },
-            { "nl": "Mag ik een avocadosalade?", "en": "May I have an avocado salad?" },
-            { "nl": "Kunnen we nog wat mayonaise krijgen?", "en": "Can we have some more mayo, please?" },
-            { "nl": "Mag ik nog een bolletje ijs?", "en": "Can I get another scoop of ice cream?" }
+            { "nl": "Ik heb best honger. Ik neem een van die steaks.", "en": "I feel quite hungry. I'll have one of those steaks.", "parts": ["I feel quite hungry.", "I'll have", "one of", "those steaks."] },
+            { "nl": "Ik wil ook een glas water.", "en": "I would like a glass of water too, please.", "parts": ["I would like", "a glass of water", "too, please."] },
+            { "nl": "Mag ik een avocadosalade?", "en": "May I have an avocado salad?", "parts": ["May I have", "an avocado salad?"] },
+            { "nl": "Kunnen we nog wat mayonaise krijgen?", "en": "Can we have some more mayo, please?", "parts": ["Can we have", "some more mayo,", "please?"] },
+            { "nl": "Mag ik nog een bolletje ijs?", "en": "Can I get another scoop of ice cream?", "parts": ["Can I get", "another scoop", "of ice cream?"] }
           ]
         },
         {
           "group": "D", "title": "Je zegt dankjewel",
+          "picture": { "scene": { "cast": [ { "who": "vera", "pose": "wave", "face": "happy", "x": 115 } ], "props": [ { "t": "bubble", "x": 265, "y": 58, "w": 130, "h": 46, "c": "Thanks!", "s": 24, "tx": 150, "ty": 82 } ] } },
           "items": [
-            { "nl": "Toch bedankt.", "en": "Thanks all the same." },
-            { "nl": "Bedankt voor je hulp.", "en": "Thanks for your help." },
-            { "nl": "Graag gedaan.", "en": "My pleasure." },
+            { "nl": "Toch bedankt.", "en": "Thanks all the same.", "parts": ["Thanks", "all the same."] },
+            { "nl": "Bedankt voor je hulp.", "en": "Thanks for your help.", "parts": ["Thanks", "for your help."] },
+            { "nl": "Graag gedaan.", "en": "My pleasure.", "parts": ["My", "pleasure."] },
             { "nl": "Bedankt!", "en": "Cheers!" }
           ]
         }
