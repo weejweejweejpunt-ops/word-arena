@@ -74,6 +74,9 @@ a { color: inherit; }
 .foot:empty { display: none; }
 .foot-row { display: grid; grid-template-columns: 1fr 1.7fr; gap: 0.7rem; }
 .foot-row.one { grid-template-columns: 1fr; }
+.foot-row.eq { grid-template-columns: 1fr 1fr; }
+.foot-row.eq .btn { padding-left: 0.5rem; padding-right: 0.5rem; }
+.foot-row.eq .btn:not(.primary) { font-size: 0.92rem; }
 
 /* ---------- knoppen ---------- */
 .btn {
@@ -203,6 +206,25 @@ a { color: inherit; }
 .lesson-name { font-size: 1.2rem; margin-bottom: 0.2rem; }
 .lesson-name span { color: var(--muted); font-weight: 500; font-size: 1rem; }
 .opt .mark { font-weight: 800; color: var(--ok); }
+
+/* typmatch */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.answer-input {
+  display: block; width: 100%; margin-top: 0.9rem; padding: 0.7rem 1rem;
+  font: inherit; font-size: 1.5rem; font-weight: 700; text-align: center; color: var(--text);
+  background: var(--card); border: 2px solid var(--line); border-radius: 14px;
+}
+.answer-input::placeholder { color: var(--muted); font-weight: 500; }
+.answer-input:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-color: var(--gold); }
+.answer-input.ok { background: var(--ok-bg); border-color: var(--ok); }
+.answer-input.miss { background: var(--miss-bg); border-color: var(--miss); }
+.letters { margin: 0.4rem 0 0; text-align: center; color: var(--muted); font-size: 0.95rem; }
+.fb.near { background: #302b10; border: 2px solid var(--gold); }
+.diff { display: block; margin-top: 0.35rem; font-size: 1.15rem; font-weight: 700; }
+.diff .dl { display: inline-block; min-width: 6.4rem; color: var(--muted); font-size: 0.9rem; font-weight: 500; }
+.diff mark { background: rgba(245, 197, 66, 0.28); color: var(--gold); border-radius: 3px; padding: 0 1px; text-decoration: underline; }
+.fb .try { display: block; margin-top: 0.5rem; color: var(--muted); font-weight: 500; }
+@media (max-height: 560px) { .typing-pic { display: none; } }   /* toetsenbord open op een klein scherm: ruimte voor het invoerveld */
 
 .fb { margin-top: 0.9rem; padding: 0.7rem 0.9rem; border-radius: var(--radius); font-weight: 600; }
 .fb.ok { background: var(--ok-bg); border: 2px solid var(--ok); }

@@ -49,13 +49,16 @@ export function markSeen(key) {
   if (!r.seen) { r.seen = true; put(key, r); }
 }
 
-/** Een antwoord in de oefenmatch. Geeft de nieuwe gegevens terug. */
-export function recordAnswer(key, correct) {
+/**
+ * Een antwoord in een oefenmatch of typmatch. Geeft de nieuwe gegevens terug.
+ * opts.assisted = het kwam goed na een tweede poging (bij "bijna"): telt als goed, maar het woord schuift niet op.
+ */
+export function recordAnswer(key, correct, opts = {}) {
   const r = rec(key), t = today();
   r.seen = true; r.tries++;
   if (correct) {
     r.right++;
-    if (r.due <= t) {                       // alleen vooruit als het woord aan de beurt was
+    if (!opts.assisted && r.due <= t) {     // alleen vooruit als het woord aan de beurt was
       r.box = Math.min(MAX_BOX, r.box + 1);
       r.due = t + INTERVALS[r.box];
     }

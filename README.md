@@ -12,13 +12,18 @@ Alles is zelf bedacht en getekend. Er zijn geen echte worstelaarsters, namen of 
 - De **uitdrukkingen van Les 3** (20 zinnen) staan al in de data, maar er is nog geen oefening voor.
 - **Leren**: kaartjes met plaatje, voorlezen (Brits Engels) en een voorbeeldzin.
 - **Oefenmatch**: meerkeuze met 4 opties. Fout? Dan zie je rustig het juiste antwoord, zonder rood en zonder geluid.
-- **Richting**: zoals in het boek, Engels → Nederlands, Nederlands → Engels, of door elkaar.
+- **Typmatch**: je ziet het Nederlandse woord en typt het Engelse woord zelf. Alleen woorden die je al gezien hebt (bij Leren of in een oefenmatch).
+  - Hoofdletters en streepjes maken niet uit, en "to" weglaten mag (`describe` is goed voor `to describe`). Bij `wavy (hair)` is `wavy` en `wavy hair` goed.
+  - Een **kleine typfout** (een letter te veel, te weinig, verkeerd of omgewisseld) is "bijna": je ziet wat er anders is en mag het nog één keer proberen. Lukt dat, dan telt het als goed, maar het woord schuift niet op in het herhaalschema.
+  - Een vergeten hoofdletter bij `American` of `Italian` is ook "bijna". Bij woorden van 3 letters of korter is elke fout gewoon fout.
+  - Fout, of "Ik weet het niet"? Dan zie je het goede antwoord en komt het woord straks terug.
+- **Richting** (voor de oefenmatch): zoals in het boek, Engels → Nederlands, Nederlands → Engels, of door elkaar.
 - **Slim herhalen** (Leitner): fout = het woord komt snel terug, goed = het komt later terug (na 1, 3 en 7 dagen).
 - **Riem** per les die zich vult. De riem gaat nooit omlaag.
 - Korte matches (standaard 10 woorden, instelbaar op 5/10/15), altijd stoppen kan, voortgang blijft bewaard op de telefoon.
 - Rustig: geen timers, geen levens, geen flitsende dingen, geluid staat uit en `prefers-reduced-motion` wordt gerespecteerd.
 
-Nog niet gebouwd: Typen, de Uitdrukkingen-oefening, grammatica, eigen personage ontwerpen.
+Nog niet gebouwd: de Uitdrukkingen-oefening, grammatica, eigen personage ontwerpen.
 
 ## Uitproberen op de laptop
 
@@ -139,6 +144,7 @@ js/app.js                                  de schermen
 js/figure.js                               tekent de worstelaarsters, de arena en de scènes
 js/store.js                                voortgang en Leitner
 js/speech.js                               voorlezen (en-GB)
+js/typing.js                               typmatch: goed, "bijna" of fout, en het verschil tonen
 data/characters.json                       alle personagegegevens
 data/units.json, data/unit1.json           de woordenlijsten
 galerij.html                               overzicht van alle tekeningen

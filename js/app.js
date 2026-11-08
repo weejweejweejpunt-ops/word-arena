@@ -4,6 +4,7 @@
 import { setCharacters, portraitSVG, sceneSVG, pictureSVG, progressBeltSVG } from './figure.js';
 import * as store from './store.js';
 import { speak, stopSpeaking, speechSupported } from './speech.js';
+import { judge, diffMarks, letterHint } from './typing.js';
 
 const $app = document.getElementById('app');
 
@@ -124,13 +125,14 @@ const knownText = words => `${store.knownCount(words)} van ${words.length} woord
 function route() {
   const [name, arg] = location.hash.replace(/^#\/?/, '').split('/');
   stopSpeaking();
-  if (!['learn', 'quiz', 'result'].includes(name)) round = null;
+  if (!['learn', 'quiz', 'type', 'result'].includes(name)) round = null;
   if (name !== 'settings') { lastMain = location.hash || '#/'; askReset = false; }
   switch (name) {
     case 'lessons': return lessonsScreen();
     case 'lesson': return lessonScreen(arg);
     case 'learn': return roundScreen('learn', arg);
     case 'quiz': return roundScreen('quiz', arg);
+    case 'type': return roundScreen('type', arg);
     case 'result': return resultScreen();
     case 'settings': return settingsScreen();
     case 'wrestlers': return wrestlersScreen();
@@ -154,6 +156,7 @@ function openingScreen() {
         <li><strong>Kies een les.</strong> Je ziet de woorden uit je schoolboek: Unit 1, Study box.</li>
         <li><strong>Leren.</strong> Je bekijkt een woord met een plaatje. Tik op het luidsprekertje om het te horen.</li>
         <li><strong>Oefenmatch.</strong> Je oefent in een match. Bij elk woord kies je het goede antwoord uit 4 mogelijkheden.</li>
+        <li><strong>Typmatch.</strong> Je ziet een Nederlands woord. Jij typt het Engelse woord. Een kleine typfout is niet erg: dan zit je er ‘bijna’ op en zie je wat er anders is.</li>
         <li><strong>Klaar na ${s.roundSize} woorden.</strong> Dan zie je hoeveel je goed had en hoe vol je riem is.</li>
       </ol>
 
@@ -206,7 +209,8 @@ function lessonScreen(scope) {
       <p class="meta">${knownText(w)}. Riem ${pct(store.beltProgress(w))}% gevuld.</p>
       <a class="mode" href="#/learn/${scope}">${face('ivy')}<div><strong>Leren</strong><span>Bekijk de woorden met een plaatje en luister naar het woord.</span></div></a>
       <a class="mode" href="#/quiz/${scope}">${face('vera')}<div><strong>Oefenmatch</strong><span>Een match van ${s.roundSize} woorden. Kies steeds het goede antwoord uit 4. Fout? Dan zie je het juiste antwoord.</span></div></a>
-      <h2 class="section-title">Welke kant op?</h2>
+      <a class="mode" href="#/type/${scope}">${face('dahlia')}<div><strong>Typmatch</strong><span>Je ziet het Nederlandse woord. Typ het Engelse woord zelf. Bijna goed? Dan zie je wat er anders is.</span></div></a>
+      <h2 class="section-title">Richting van de oefenmatch</h2>
       <div class="chips" role="group" aria-label="Richting">
         ${DIRS.map(([v, t]) => `<button type="button" class="chip" data-act="dir" data-v="${v}" aria-pressed="${s.direction === v}">${t}</button>`).join('')}
       </div>`
@@ -240,10 +244,14 @@ function makeQuestion(w, dir, pool) {
 function startRound(mode, scope) {
   const info = scopeInfo(scope);
   const n = Math.min(store.settings().roundSize, info.words.length);
-  const picked = mode === 'learn' ? store.pickLearn(info.words, n) : store.pickQuiz(info.words, n);
+  // Typen doe je met woorden die ze al gezien heeft (bij Leren of in een oefenmatch).
+  const seen = info.words.filter(w => store.rec(w.key).seen);
+  const picked = mode === 'learn' ? store.pickLearn(info.words, n)
+    : mode === 'type' ? store.pickQuiz(seen, Math.min(n, seen.length))
+    : store.pickQuiz(info.words, n);
   round = {
     mode, scope, info, i: 0, results: [], done: false,
-    items: picked.map(w => mode === 'quiz' ? makeQuestion(w, dirFor(w), info.words) : { word: w, dir: dirFor(w) }),
+    items: picked.map(w => mode === 'quiz' ? makeQuestion(w, dirFor(w), info.words) : { word: w, dir: mode === 'type' ? 'nl-en' : dirFor(w) }),
     flipped: false, answered: null, showNl: false,
     beltBefore: store.beltProgress(info.words)
   };
@@ -252,9 +260,10 @@ function startRound(mode, scope) {
 function roundScreen(mode, scope) {
   if (!scopeInfo(scope)) return go('#/lessons');
   if (!round || round.mode !== mode || round.scope !== scope || round.done) startRound(mode, scope);
-  if (!round.items.length) return go('#/lesson/' + scope);
-  mode === 'learn' ? learnCard() : quizQuestion();
+  if (!round.items.length) return mode === 'type' ? typeEmpty(scope) : go('#/lesson/' + scope);
+  renderRound();
 }
+const renderRound = () => round.mode === 'learn' ? learnCard() : round.mode === 'type' ? typeQuestion() : quizQuestion();
 
 const progressBlock = () => `
   <div class="prog">
@@ -349,6 +358,83 @@ function answer(k) {
   if (q.dir === 'nl-en') maybeAutoSpeak(w.en);
 }
 
+/* ---------- Typmatch (zelf intypen) ---------- */
+function typeQuestion() {
+  const w = round.items[round.i].word;
+  round.attempts = 0; round.near = false; round.final = false; round.showNl = false;
+  screen({
+    title: 'Typmatch', back: stopLink(), gear: false,
+    body: `${progressBlock()}<div class="pic typing-pic">${pictureSVG(w)}</div>
+      <div class="word-block">
+        <p class="small-label">Typ het Engelse woord.</p>
+        <p class="big-word">${esc(w.nl)}</p>
+      </div>
+      <label class="sr-only" for="answer">Het Engelse woord</label>
+      <input id="answer" class="answer-input" type="text" lang="en" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="done" inputmode="text" placeholder="Typ hier" aria-describedby="letters">
+      <p class="letters" id="letters">${letterHint(w.en)}</p>
+      <div id="feedback" aria-live="polite"></div>`,
+    foot: `<div class="foot-row eq"><button type="button" class="btn" id="idkBtn" data-act="idk">Ik weet het niet</button><button type="button" class="btn primary" id="checkBtn" data-act="check">Controleer</button></div>`
+  });
+  const input = document.getElementById('answer');
+  if (input) input.focus({ preventScroll: true });
+}
+
+function typeEmpty(scope) {
+  screen({
+    title: 'Typmatch', back: { href: '#/lesson/' + scope, label: 'Terug' }, gear: false,
+    body: `<div class="result"><div class="fig">${portraitSVG('ivy', { pose: 'think', face: 'thinking' })}</div>
+      <h2>Eerst even leren</h2>
+      <p class="sub">Je hebt nog geen woorden gezien. Bij een typmatch krijg je woorden die je al een keer gezien hebt.</p></div>`,
+    foot: `<div class="foot-row"><a class="btn" href="#/quiz/${scope}">Oefenmatch</a><a class="btn primary" href="#/learn/${scope}">Eerst leren</a></div>`
+  });
+}
+
+/** Controleert wat ze typde. Goed, "bijna" (nog een poging, met het verschil erbij) of fout (het goede antwoord erbij). */
+function typeCheck() {
+  if (round.final) return next();
+  const input = document.getElementById('answer');
+  if (!input || !input.value.trim()) { if (input) input.focus(); return; }      // nog niets getypt: rustig wachten
+  const w = round.items[round.i].word;
+  const j = judge(input.value, w.en);
+  round.attempts++;
+  if (j.result === 'exact') return finishType(true, { assisted: round.near });
+  if (j.result === 'near' && !round.near) {                                      // de eerste keer bijna: je mag het nog een keer proberen
+    round.near = true;
+    const d = diffMarks(input.value, j.form);
+    const note = j.note === 'case' ? 'Let op de hoofdletter.' : 'Kijk goed naar de letters.';
+    const fb = document.getElementById('feedback');
+    fb.innerHTML = `<div class="fb near"><strong>Bijna!</strong> ${note}` +
+      `<span class="diff"><span class="dl">Jij typte</span><span lang="en">${d.typedHtml}</span></span>` +
+      `<span class="diff"><span class="dl">Het moet zijn</span><span lang="en">${d.correctHtml}</span></span>` +
+      `<span class="try">Probeer het nog een keer.</span></div>`;
+    input.focus();
+    fb.scrollIntoView({ block: 'nearest' });
+    return;
+  }
+  finishType(false);
+}
+
+function finishType(ok, opts = {}) {
+  const w = round.items[round.i].word, last = round.i === round.items.length - 1;
+  round.final = true;
+  round.results.push({ word: w, ok });
+  store.recordAnswer(w.key, ok, opts);
+  const input = document.getElementById('answer');
+  input.readOnly = true;
+  input.classList.add(ok ? 'ok' : 'miss');
+  input.blur();
+  const pair = `<span class="pair">${en(w.en)} = ${esc(w.nl)} ${speakBtn(w.en)}</span>`;
+  const head = ok ? (opts.assisted ? 'Goed! Nu klopt het.' : 'Goed!') : 'Het juiste antwoord is:';
+  const fb = document.getElementById('feedback');
+  fb.innerHTML = `<div class="fb ${ok ? 'ok' : 'miss'}">${head}${pair}</div>${sentenceBlock(w, round.showNl)}`;
+  const check = document.getElementById('checkBtn');
+  check.dataset.act = 'next';
+  check.textContent = last ? 'Klaar' : 'Volgende ›';
+  document.getElementById('idkBtn').disabled = true;
+  fb.scrollIntoView({ block: 'nearest' });
+  maybeAutoSpeak(w.en);
+}
+
 function next() {
   const last = round.i === round.items.length - 1;
   if (round.mode === 'learn') {
@@ -357,7 +443,7 @@ function next() {
   }
   if (last) { round.done = true; return go('#/result'); }
   round.i++; round.flipped = false; round.answered = null; round.showNl = false;
-  round.mode === 'learn' ? learnCard() : quizQuestion();
+  renderRound();
 }
 
 /* ---------- resultaat ---------- */
@@ -476,6 +562,8 @@ $app.addEventListener('click', e => {
       if (round.i > 0) { round.i--; round.flipped = false; learnCard(); }
       break;
     case 'next': next(); break;
+    case 'check': typeCheck(); break;
+    case 'idk': if (!round.final) finishType(false); break;
     case 'opt': answer(Number(el.dataset.i)); break;
     case 'toggle-nl': {
       round.showNl = true;
@@ -490,8 +578,12 @@ $app.addEventListener('click', e => {
     case 'reset-ask': askReset = true; settingsScreen(); break;
     case 'reset-no': askReset = false; settingsScreen(); break;
     case 'reset-yes': store.resetProgress(); askReset = false; settingsScreen(); break;
-    case 'again': { const sc = round.scope; round = null; go('#/quiz/' + sc); break; }
+    case 'again': { const sc = round.scope, m = round.mode === 'type' ? 'type' : 'quiz'; round = null; go(`#/${m}/${sc}`); break; }
   }
+});
+// Enter op het toetsenbord = Controleer (of Volgende als het antwoord al nagekeken is)
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target && e.target.id === 'answer') { e.preventDefault(); typeCheck(); }
 });
 const scopeFromHash = () => location.hash.split('/')[2] || 'all';
 
